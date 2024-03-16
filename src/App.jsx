@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./features/users/Login";
-import Register from "./features/users/Register";
-import ListTasks from "./features/tasks/ListTasks";
+import Login from "./features/user/Login";
+import Register from "./features/user/Register";
+import TasksList from "./features/tasks/TasksList";
 
 import "./app.css";
 import Layout from "./features/common/Layout";
 import { useGetUserQuery } from "./features/api/apiSlice";
-import Logout from "./features/users/Logout";
+import Logout from "./features/user/Logout";
 
 function App() {
   const { data: user } = useGetUserQuery();
@@ -14,10 +14,10 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={user ? <ListTasks /> : <Register />} />
+        <Route index element={user ? <TasksList /> : <Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/tasks" element={<ListTasks />} />
+        <Route path="/tasks" element={<TasksList />} />
       </Route>
     </Routes>
   );

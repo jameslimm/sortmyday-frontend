@@ -54,13 +54,13 @@ export const apiSlice = createApi({
       providesTags: [{ type: "Tasks", id: "LIST" }],
     }),
     addTask: builder.mutation({
-      query(title) {
+      query(taskObj) {
         return {
           url: "tasks",
           credentials: "include",
           method: "POST",
           body: {
-            title,
+            ...taskObj,
           },
         };
       },

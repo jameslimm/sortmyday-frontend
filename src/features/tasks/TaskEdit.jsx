@@ -4,7 +4,7 @@ import { RiEditLine } from "react-icons/ri";
 import Filters from "./Filters";
 import { useDeleteTaskMutation, useGetTasksQuery, useUpdateTaskMutation } from "../api/apiSlice";
 
-const TaskView = ({ task }) => {
+const TaskEdit = ({ task }) => {
   const { data: tasks } = useGetTasksQuery();
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
@@ -19,30 +19,17 @@ const TaskView = ({ task }) => {
         task.completed ? "bg-slate-50" : "bg-slate-200"
       } p-2 mx-3 my-4 rounded shadow-md gap-4`}
     >
-      <input
-        className="w-10 h-10 accent-white shadow-md"
-        type="checkbox"
-        checked={task.completed}
-        onChange={handleCheckToggle}
-        id={task._id}
-      />
       <div className="flex-1 flex flex-col gap-1 justify-between">
-        <label
-          className={`font-normal text-2xl text-purple-950 cursor-pointer ${
-            task.completed && "line-through"
-          }`}
-          htmlFor={task._id}
-        >
-          {task.title}
-        </label>
+        <input type="text" value={task.title} />
+
         <div className="flex items-center justify-start gap-2">
-          <Filters tasks={tasks} task={task} />
+          <Filters tasks={tasks} />
         </div>
       </div>
-      {/* {!task.completed && <RiEditLine className="w-8 h-8 text-slate-400" />} */}
-      <RiDeleteBinLine className="w-8 h-8 text-slate-400" onClick={() => deleteTask(task._id)} />
+      <button>Save Changes</button>
+      <button>Cancel</button>
     </div>
   );
 };
 
-export default TaskView;
+export default TaskEdit;
