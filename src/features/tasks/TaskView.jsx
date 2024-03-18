@@ -2,10 +2,9 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
 
 import Filters from "./Filters";
-import { useDeleteTaskMutation, useGetTasksQuery, useUpdateTaskMutation } from "../api/apiSlice";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "../api/apiSlice";
 
-const TaskView = ({ task }) => {
-  const { data: tasks } = useGetTasksQuery();
+const TaskView = ({ task, setIsEditing }) => {
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
 
@@ -17,7 +16,7 @@ const TaskView = ({ task }) => {
     <div
       className={`flex items-center ${
         task.completed ? "bg-slate-50" : "bg-slate-200"
-      } p-2 mx-3 my-4 rounded shadow-md gap-4`}
+      } p-2 mx-3 my-4 rounded shadow-md gap-4 `}
     >
       <input
         className="w-10 h-10 accent-white shadow-md"
@@ -36,11 +35,16 @@ const TaskView = ({ task }) => {
           {task.title}
         </label>
         <div className="flex items-center justify-start gap-2">
-          <Filters tasks={tasks} task={task} />
+          <Filters singleTag={task.tag} />
         </div>
       </div>
-      {/* {!task.completed && <RiEditLine className="w-8 h-8 text-slate-400" />} */}
-      <RiDeleteBinLine className="w-8 h-8 text-slate-400" onClick={() => deleteTask(task._id)} />
+      {!task.completed && (
+        <RiEditLine onClick={() => setIsEditing(true)} className="w-7 h-7 text-slate-400" />
+      )}
+      <RiDeleteBinLine
+        className="min-w-7 w-7 min-h-7 h-7 text-slate-400"
+        onClick={() => deleteTask(task._id)}
+      />
     </div>
   );
 };

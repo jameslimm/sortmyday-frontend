@@ -23,12 +23,10 @@ const FilterTag = ({ tag, tagIndex, filterBy, setFilterBy }) => {
 
   const selectedTag = (filterBy === "" && tag === "all") || filterBy === tag;
 
-  console.log({ tag, tagIndex });
-
   return (
     <span
-      onClick={() => setFilterBy(tag === "all" ? "" : tag)}
-      className={`block ${tagColor} px-2 rounded-md text-sm cursor-pointer ${
+      onClick={() => setFilterBy && setFilterBy(tag === "all" ? "" : tag)}
+      className={`block ${tagColor} px-2 rounded-md text-sm cursor-pointer select-none ${
         selectedTag && FILTERED_CLASS
       }`}
     >

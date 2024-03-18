@@ -1,7 +1,7 @@
 import { useGetTasksQuery } from "../api/apiSlice";
 import FilterTag from "./FilterTag";
 
-const Filters = ({ task, filterBy, setFilterBy }) => {
+const Filters = ({ singleTag, showAll, filterBy, setFilterBy }) => {
   const { data: tasks } = useGetTasksQuery();
 
   // enumerate through all tasks for this user
@@ -17,14 +17,14 @@ const Filters = ({ task, filterBy, setFilterBy }) => {
 
   return (
     <>
-      {!task && (
+      {showAll && (
         <FilterTag tag={"all"} tagIndex={-1} filterBy={filterBy} setFilterBy={setFilterBy} />
       )}
 
       {tags.map((tag, i) => {
         // enumerate through list of all tags used by all tasks.  If no task is passed to the
         // component, output all tasks.  Otherwise, filter by the tags in this task.
-        if ((task && task.tag.includes(tag)) || !task)
+        if (!singleTag || singleTag === tag)
           return (
             <FilterTag
               key={tag}

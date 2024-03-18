@@ -53,6 +53,10 @@ export const apiSlice = createApi({
       },
       providesTags: [{ type: "Tasks", id: "LIST" }],
     }),
+    getTask: builder.query({
+      query: (id) => `tasks/${id}`,
+      providesTags: [{ type: "Tasks", id: "LIST" }],
+    }),
     addTask: builder.mutation({
       query(taskObj) {
         return {
@@ -67,15 +71,24 @@ export const apiSlice = createApi({
       invalidatesTags: [{ type: "Tasks", id: "LIST" }],
     }),
     updateTask: builder.mutation({
-      query(taskObject) {
+      query({ _id, ...patch }) {
+        console.log({ _id, ...patch });
         return {
-          url: "tasks",
+          url: `tasks/${_id}`,
           credentials: "include",
           method: "PUT",
-          body: { ...taskObject },
+          body: patch,
         };
       },
-      invalidatesTags: [{ type: "Tasks", id: "LIST" }],
+      onQueryStarted({ _id, ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getTasks", undefined, (tasks) => {
+            const taskIdx = tasks.findIndex((t) => t._id === _id);
+            tasks[taskIdx] = { _id, ...patch };
+          })
+        );
+        queryFulfilled.catch(() => patchResult.undo());
+      },
     }),
     deleteTask: builder.mutation({
       query(_id) {
@@ -86,7 +99,15 @@ export const apiSlice = createApi({
           body: { _id },
         };
       },
-      invalidatesTags: [{ type: "Tasks", id: "LIST" }],
+      onQueryStarted({ _id }, { dispatch, queryFulfilled }) {
+        const deleteResult = dispatch(
+          apiSlice.util.updateQueryData("getTasks", undefined, (tasks) => {
+            const taskIdx = tasks.findIndex((t) => t._id === _id);
+            tasks.splice(taskIdx, 1);
+          })
+        );
+        queryFulfilled.catch(() => deleteResult.undo());
+      },
     }),
   }),
 });

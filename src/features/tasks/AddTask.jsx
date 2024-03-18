@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useAddTaskMutation } from "../api/apiSlice";
+import { taskValidate } from "./taskUtils";
 
-const AddTask = ({ tag }) => {
-  const [task, setTask] = useState("");
+const AddTask = ({ tag: chosenTag }) => {
+  const [taskInput, setTaskInput] = useState("");
   const [uiError, setUiError] = useState("");
   const [addTask, result] = useAddTaskMutation();
-  const { isError, isLoading, isSuccess } = result;
+  const { isError } = result;
   const taskInputRef = useRef(null);
 
   useEffect(() => {
@@ -17,35 +18,23 @@ const AddTask = ({ tag }) => {
   }, [isError]);
 
   const handleInputChange = (e) => {
-    setTask(e.target.value);
+    setTaskInput(e.target.value);
     setUiError("");
   };
 
   const handleAddTodoSubmit = (e) => {
     e.preventDefault();
-    if (!task) {
-      setUiError("Missing task");
-      taskInputRef.current && taskInputRef.current.focus();
-      return;
-    }
-
-    // does task include a tag?  Look for a hash and use any strings
-    // after it.
-    const taskArray = task.split("#");
-
-    if (taskArray.length > 2) {
-      // more that one tags added, throw error
-      setUiError("Too many tags set - only one allowed.");
-      taskInputRef.current && taskInputRef.current.focus();
-      return;
-    }
-
-    let saveTask = taskArray[0].trim();
-    let saveTag = taskArray[1]?.trim().toLowerCase() || tag || "inbox";
-
-    addTask({ title: saveTask, tag: saveTag });
-    setTask("");
     taskInputRef.current && taskInputRef.current.focus();
+
+    const { error, task, tag } = taskValidate(taskInput);
+
+    if (error) return setUiError(error);
+
+    // Tag will be either 1) the # typed into the input box, 2) the selected
+    // tag in the filter list, or 3) "inbox"
+    console.log({ title: task, tag: tag || chosenTag || "inbox" });
+    addTask({ title: task, tag: tag || chosenTag || "inbox" });
+    setTaskInput("");
   };
 
   return (
@@ -60,7 +49,7 @@ const AddTask = ({ tag }) => {
             : "border-slate-200 placeholder-slate-500"
         } text-slate-500`}
         type="text"
-        value={task}
+        value={taskInput}
         placeholder="Todo item with optional #tag"
         onChange={handleInputChange}
         onBlur={() => setUiError("")}
