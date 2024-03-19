@@ -64,7 +64,7 @@ const TaskEdit = ({ task, setIsEditing }) => {
         />
 
         <div className="flex items-center justify-start gap-2 flex-wrap">
-          <Filters filterBy={editedTask.tag} setFilterBy={handleSetFilter} />
+          <Filters filter={editedTask.tag} setFilter={handleSetFilter} />
         </div>
       </div>
       <button

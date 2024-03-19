@@ -1,7 +1,7 @@
 import { useGetTasksQuery } from "../api/apiSlice";
 import FilterTag from "./FilterTag";
 
-const Filters = ({ singleTag, showAll, filterBy, setFilterBy }) => {
+const Filters = ({ singleTag, showAll, filter, setFilter }) => {
   const { data: tasks } = useGetTasksQuery();
 
   // enumerate through all tasks for this user
@@ -9,16 +9,23 @@ const Filters = ({ singleTag, showAll, filterBy, setFilterBy }) => {
 
   if (!tasks) return;
 
-  const allUniqueTags = [...new Set(tasks.map((task) => task.tag).flat())];
+  const allUniqueTags = [
+    ...new Set(
+      tasks
+        .map((task) => task.tag)
+        .filter((tag) => tag !== "")
+        .flat()
+    ),
+  ];
 
-  // Remove the "inbox" tag and make sure it's replaced in position 0 of the array
+  // If there's an "inbox", move it to the front of the array.
   const tags = allUniqueTags.filter((t) => t !== "inbox");
-  tags.unshift("inbox");
+  if (tags.length < allUniqueTags.length) tags.unshift("inbox");
 
   return (
     <>
-      {showAll && (
-        <FilterTag tag={"all"} tagIndex={-1} filterBy={filterBy} setFilterBy={setFilterBy} />
+      {showAll && tags.length > 0 && (
+        <FilterTag tag={"all"} tagIndex={-1} filter={filter} setFilter={setFilter} />
       )}
 
       {tags.map((tag, i) => {
@@ -26,13 +33,7 @@ const Filters = ({ singleTag, showAll, filterBy, setFilterBy }) => {
         // component, output all tasks.  Otherwise, filter by the tags in this task.
         if (!singleTag || singleTag === tag)
           return (
-            <FilterTag
-              key={tag}
-              tag={tag}
-              tagIndex={i}
-              setFilterBy={setFilterBy}
-              filterBy={filterBy}
-            />
+            <FilterTag key={tag} tag={tag} tagIndex={i} filter={filter} setFilter={setFilter} />
           );
       })}
     </>

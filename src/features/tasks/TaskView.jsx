@@ -34,9 +34,11 @@ const TaskView = ({ task, setIsEditing }) => {
         >
           {task.title}
         </label>
-        <div className="flex items-center justify-start gap-2">
-          <Filters singleTag={task.tag} />
-        </div>
+        {task.tag && (
+          <div className="flex items-center justify-start gap-2">
+            <Filters singleTag={task.tag} />
+          </div>
+        )}
       </div>
       {!task.completed && (
         <RiEditLine onClick={() => setIsEditing(true)} className="w-7 h-7 text-slate-400" />

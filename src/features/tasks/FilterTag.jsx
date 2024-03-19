@@ -1,4 +1,4 @@
-const FilterTag = ({ tag, tagIndex, filterBy, setFilterBy }) => {
+const FilterTag = ({ tag, tagIndex, filter, setFilter }) => {
   // Array of tailwind color class names to apply to
   // the tags.
   const TAG_COLORS = [
@@ -21,11 +21,11 @@ const FilterTag = ({ tag, tagIndex, filterBy, setFilterBy }) => {
 
   const tagColor = tagIndex >= 0 ? TAG_COLORS[tagIndex] : `bg-slate-100`;
 
-  const selectedTag = (filterBy === "" && tag === "all") || filterBy === tag;
+  const selectedTag = (filter === "" && tag === "all") || filter === tag;
 
   return (
     <span
-      onClick={() => setFilterBy && setFilterBy(tag === "all" ? "" : tag)}
+      onClick={() => setFilter && setFilter(tag === "all" ? "" : tag)}
       className={`block ${tagColor} px-2 rounded-md text-sm cursor-pointer select-none ${
         selectedTag && FILTERED_CLASS
       }`}

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAddTaskMutation } from "../api/apiSlice";
 import { taskValidate } from "./taskUtils";
 
-const AddTask = ({ tag: chosenTag }) => {
+const AddTask = () => {
   const [taskInput, setTaskInput] = useState("");
   const [uiError, setUiError] = useState("");
   const [addTask, result] = useAddTaskMutation();
@@ -26,14 +26,14 @@ const AddTask = ({ tag: chosenTag }) => {
     e.preventDefault();
     taskInputRef.current && taskInputRef.current.focus();
 
-    const { error, task, tag } = taskValidate(taskInput);
+    const { error, task: title, tag } = taskValidate(taskInput);
 
     if (error) return setUiError(error);
 
     // Tag will be either 1) the # typed into the input box, 2) the selected
     // tag in the filter list, or 3) "inbox"
-    console.log({ title: task, tag: tag || chosenTag || "inbox" });
-    addTask({ title: task, tag: tag || chosenTag || "inbox" });
+    console.log({ title, tag });
+    addTask({ title, tag });
     setTaskInput("");
   };
 

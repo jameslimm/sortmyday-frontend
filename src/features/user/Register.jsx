@@ -42,10 +42,10 @@ const Register = () => {
   };
 
   const inputClass =
-    "shadow-sm rounded-md px-2 py-1 w-44 font-semibold text-m border-solid border-2 outline-none text-slate-500";
+    "shadow-sm rounded-md px-2 py-1 w-1/2 font-semibold text-m border-solid border-2 outline-none text-slate-500";
   return (
     <>
-      <h2 className="text-center text-2xl text-slate-700 mt-6">Register Account</h2>
+      <h2 className="text-center text-2xl text-slate-700">Register Account</h2>
       <form onSubmit={(e) => handleRegister(e)} method="POST" action="/">
         <div className="flex flex-col p-2 m-2">
           <div className="flex gap-2 justify-between items-center my-4">

@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <>
-      <h2 className="text-center text-2xl text-slate-700 mt-6">Log In</h2>
+      <h2 className="text-center text-2xl text-slate-700">Log In</h2>
       <form onSubmit={(e) => handleLogin(e)} method="POST" action="/">
         <div className="flex flex-col p-2 m-2">
           <div className="flex gap-2 justify-between items-center my-4">

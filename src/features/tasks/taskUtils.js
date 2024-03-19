@@ -11,7 +11,7 @@ export const taskValidate = (taskInput, chosen) => {
   const task = taskArray[0].trim();
 
   // tag must be a single word with no spaces
-  const tag = taskArray[1]?.toLowerCase().split(" ").join("");
+  const tag = taskArray[1]?.toLowerCase().split(" ").join("") || "";
 
   // enforce min and max lengths for tag and task
   if (task.length < 3 || task.length > 30)
