@@ -5,8 +5,10 @@ import { taskValidate } from "./taskUtils";
 const AddTask = () => {
   const [taskInput, setTaskInput] = useState("");
   const [uiError, setUiError] = useState("");
+
   const [addTask, result] = useAddTaskMutation();
   const { isError } = result;
+
   const taskInputRef = useRef(null);
 
   useEffect(() => {
@@ -14,8 +16,11 @@ const AddTask = () => {
   }, []);
 
   useEffect(() => {
-    setUiError(isError && result.error.data.message);
-  }, [isError]);
+    if (isError) {
+      const { message } = result?.error?.data || {};
+      setUiError(message || isError);
+    }
+  }, [isError, result]);
 
   const handleInputChange = (e) => {
     setTaskInput(e.target.value);
@@ -30,9 +35,6 @@ const AddTask = () => {
 
     if (error) return setUiError(error);
 
-    // Tag will be either 1) the # typed into the input box, 2) the selected
-    // tag in the filter list, or 3) "inbox"
-    console.log({ title, tag });
     addTask({ title, tag });
     setTaskInput("");
   };

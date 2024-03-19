@@ -18,8 +18,11 @@ const TaskEdit = ({ task, setIsEditing }) => {
   }, []);
 
   useEffect(() => {
-    setUiError(isError && result.error.data.message);
-  }, [isError]);
+    if (isError) {
+      const { message } = result?.error?.data || {};
+      setUiError(message || isError);
+    }
+  }, [isError, result]);
 
   const handleTaskChange = (e) => {
     setEditedTask({ ...editedTask, title: e.target.value });

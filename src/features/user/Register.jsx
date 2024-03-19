@@ -1,48 +1,70 @@
 import { useEffect, useState } from "react";
 import { useCreateUserMutation } from "../api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  // Input form state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  const navigate = useNavigate();
+
+  // Import functions from RTK Query API slice
   const [createUser, result] = useCreateUserMutation();
   const { isError } = result;
 
-  const [uiError, setUiError] = useState("");
+  // Set state for the general error message...
+  const [error, setError] = useState("");
+  // And an array of fields/input ids to highlight in the event of an error
+  const [errorFields, setErrorFields] = useState([]);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handlePasswordConfirmChange = (e) => setPasswordConfirm(e.target.value);
 
-  console.log(result);
+  const handleFieldHasFocus = () => {
+    setError("");
+    setErrorFields([]);
+  };
 
   useEffect(() => {
     if (isError) {
-      setUiError(result?.data?.error?.message || isError);
+      const { message, errorFields } = result?.error?.data || {};
+
+      setError(message || isError);
+      setErrorFields([...errorFields] || []);
     }
-  }, [isError]);
+  }, [isError, result]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setUiError("");
-    console.log(username, password, passwordConfirm);
-    if (!username || !password) {
-      console.log("HERE");
-      setUiError("Missing username or password");
+
+    // Local error handings + input validation
+    setError("");
+    setErrorFields([]);
+
+    if (!username) {
+      setError("Missing username");
+      setErrorFields(["username"]);
       return;
     }
 
     if (password !== passwordConfirm) {
-      setUiError("Password fields don't match");
+      setError("Password fields don't match");
+      setErrorFields(["password", "passwordConfirm"]);
       return;
     }
-
     createUser({ username, password });
+    navigate("/tasks");
   };
 
   const inputClass =
-    "shadow-sm rounded-md px-2 py-1 w-1/2 font-semibold text-m border-solid border-2 outline-none text-slate-500";
+    "shadow-sm rounded-md px-2 py-1 w-1/2 font-semibold text-m border-solid border-2 text-slate-500";
+
+  const inputClassColorOk = "border-slate-200 placeholder-slate-500";
+  const inputClassColorError = "border-red-600 text-red-600 placeholder-red-600";
+
   return (
     <>
       <h2 className="text-center text-2xl text-slate-700">Register Account</h2>
@@ -59,8 +81,11 @@ const Register = () => {
               placeholder="Username"
               value={username}
               required
+              onFocus={handleFieldHasFocus}
               onChange={handleUsernameChange}
-              className={inputClass}
+              className={`${inputClass} ${
+                errorFields.includes("username") ? inputClassColorError : inputClassColorOk
+              }`}
             ></input>
           </div>
           <div className="flex gap-2 justify-between items-center my-4">
@@ -74,8 +99,11 @@ const Register = () => {
               placeholder="Password"
               value={password}
               required
+              onFocus={handleFieldHasFocus}
               onChange={handlePasswordChange}
-              className={inputClass}
+              className={`${inputClass} ${
+                errorFields.includes("password") ? inputClassColorError : inputClassColorOk
+              }`}
             ></input>
           </div>
           <div className="flex gap-2 justify-between items-center my-4">
@@ -89,11 +117,14 @@ const Register = () => {
               placeholder="Confirm Password"
               required
               value={passwordConfirm}
+              onFocus={handleFieldHasFocus}
               onChange={handlePasswordConfirmChange}
-              className={inputClass}
+              className={`${inputClass} ${
+                errorFields.includes("passwordConfirm") ? inputClassColorError : inputClassColorOk
+              }`}
             ></input>
           </div>
-          {uiError && <p className="text-center text-red-600">{uiError}</p>}
+          {error && <p className="text-center text-red-600">{error}</p>}
           <button
             type="submit"
             className="bg-slate-500 px-2 py-1 mt-6 text-m font-semibold rounded-md text-slate-50"

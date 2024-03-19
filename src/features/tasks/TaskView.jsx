@@ -19,7 +19,7 @@ const TaskView = ({ task, setIsEditing }) => {
       } p-2 mx-3 my-4 rounded shadow-md gap-4 `}
     >
       <input
-        className="w-10 h-10 accent-white shadow-md"
+        className="w-10 h-10 accent-slate-600 shadow-md"
         type="checkbox"
         checked={task.completed}
         onChange={handleCheckToggle}

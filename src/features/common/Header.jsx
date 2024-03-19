@@ -1,17 +1,14 @@
 import { Link } from "react-router-dom";
 import { useGetUserQuery } from "../api/apiSlice";
 import UserMenu from "../user/UserMenu";
+import Logo from "./Logo";
 
 const Header = () => {
   const { data: user } = useGetUserQuery();
 
   return (
     <header className="flex justify-between items-center mx-auto bg-blue-50 md:w-1/2 h-10 relative">
-      <h1 className="font-medium text-2xl bg-slate-600 w-fit shadow-m text-slate-50 px-4 py-1 rounded-ee-xl">
-        <Link to="/">
-          SortMyDay<span className="text-sm font-thin">.co.uk</span>
-        </Link>
-      </h1>
+      <Logo />
       <div>
         {user && <UserMenu />}
         {!user && (

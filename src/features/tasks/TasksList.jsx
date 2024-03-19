@@ -4,6 +4,7 @@ import { useGetTasksQuery } from "../api/apiSlice";
 import AddTask from "./AddTask";
 import Filters from "./Filters";
 import Task from "./Task";
+import NoTasks from "./NoTasks";
 
 const TasksList = () => {
   const { data: tasks } = useGetTasksQuery();
@@ -35,7 +36,7 @@ const TasksList = () => {
       <div className="flex flex-wrap items-center justify-start gap-2 m-4">
         <Filters showAll={true} filter={filter} setFilter={setFilter} />
       </div>
-      {filteredTasks && filteredTasks.length === 0 && <h3>No Tasks</h3>}
+      {filteredTasks && filteredTasks.length === 0 && <NoTasks />}
 
       {filteredTasks && filteredTasks.map((task) => <Task key={task._id} task={task} />)}
     </>

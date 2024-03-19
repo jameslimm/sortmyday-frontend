@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const API_BASEURL = "https://api.sortmyday.co.uk/";
+// const API_BASEURL = "http://localhost:3500/";
+
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.sortmyday.co.uk/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_BASEURL }),
   tagTypes: ["Tasks", "User"],
   endpoints: (builder) => ({
     createUser: builder.mutation({
@@ -72,7 +75,6 @@ export const apiSlice = createApi({
     }),
     updateTask: builder.mutation({
       query({ _id, ...patch }) {
-        console.log({ _id, ...patch });
         return {
           url: `tasks/${_id}`,
           credentials: "include",
