@@ -38,7 +38,8 @@ const TasksList = () => {
       </div>
       {filteredTasks && filteredTasks.length === 0 && <NoTasks />}
 
-      {filteredTasks && filteredTasks.map((task) => <Task key={task._id} task={task} />)}
+      {filteredTasks &&
+        filteredTasks.map((task, i) => <Task key={task._id} task={task} taskPos={i} />)}
     </>
   );
 };
