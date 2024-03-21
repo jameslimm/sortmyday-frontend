@@ -1,7 +1,7 @@
 import Filters from "./Filters";
 import { useUpdateTaskMutation } from "../api/apiSlice";
 import { useEffect, useRef, useState } from "react";
-import { taskValidate } from "./taskUtils";
+import { taskValidate } from "./taskValidate";
 
 const TaskEdit = ({ task, setIsEditing }) => {
   const taskInputRef = useRef(null);

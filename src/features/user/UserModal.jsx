@@ -25,7 +25,7 @@ const UserModal = ({ handleClose }) => {
   return (
     <div
       ref={modalRef}
-      className="flex flex-col justify-start items-center absolute px-4 py-4 w-72 gap-2 right-8 top-14 z-10 shadow-lg rounded-lg border-slate-800 border-solid border-2 bg-slate-600"
+      className="flex flex-col justify-start items-center absolute px-4 py-4 w-72 gap-2 right-8 top-14 z-10 shadow-lg rounded-lg border-slate-400 border-solid border-2 bg-slate-400 dark:bg-slate-700"
     >
       {userModalPage && userModalPage !== "INDEX" && (
         <MdArrowBack
@@ -37,7 +37,7 @@ const UserModal = ({ handleClose }) => {
         onClick={handleClose}
         className="w-8 h-8 absolute right-1 top-1 cursor-pointer hover:bg-slate-100 bg-slate-300 rounded-full p-1"
       />
-      <p className="text-3xl font-semibold text-slate-100">{username}</p>
+      <p className="text-3xl font-semibold text-slate-700 dark:text-slate-100">{username}</p>
       {userModalPage && userModalPage === "INDEX" && (
         <UserModalIndex setUserModalPage={setUserModalPage} />
       )}

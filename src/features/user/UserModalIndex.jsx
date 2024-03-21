@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useGetUserQuery } from "../api/apiSlice";
+import DarkModeToggle from "./DarkModeToggle";
+import SettingsButton from "./SettingsButton";
 
 const UserModalIndex = ({ setUserModalPage }) => {
   const { data: user } = useGetUserQuery();
@@ -12,12 +14,11 @@ const UserModalIndex = ({ setUserModalPage }) => {
           {username.substring(0, 1).toUpperCase()}
         </span>
       </div>
-      {/* <button
-        onClick={() => setUserModalPage("PASSWORD")}
-        className="bg-slate-100 text-slate-800 px-4 py-1 mt-6 text-m self-stretch font-semibold rounded-md"
-      >
-        Change Password
-      </button> */}
+
+      <div className="flex justify-between gap-8">
+        <DarkModeToggle />
+        <SettingsButton />
+      </div>
       <Link
         to={"/logout"}
         className="bg-slate-500 text-center px-4 py-1 text-slate-200 text-xl mt-4 self-stretch border-solid border-slate-200 border-2 font-semibold rounded-md "

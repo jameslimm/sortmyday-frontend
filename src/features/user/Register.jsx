@@ -12,7 +12,7 @@ const Register = () => {
 
   // Import functions from RTK Query API slice
   const [createUser, result] = useCreateUserMutation();
-  const { isError } = result;
+  const { isError, isLoading, isSuccess } = result;
 
   // Set state for the general error message...
   const [error, setError] = useState("");
@@ -37,6 +37,10 @@ const Register = () => {
     }
   }, [isError, result]);
 
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess, navigate]);
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -50,13 +54,20 @@ const Register = () => {
       return;
     }
 
+    if (!new RegExp("^[a-zA-Z]+$").test(username)) {
+      setError(
+        "Username can have only characters from A-Z or a-z (no spaces or special characters)"
+      );
+      setErrorFields(["username"]);
+      return;
+    }
+
     if (password !== passwordConfirm) {
       setError("Password fields don't match");
       setErrorFields(["password", "passwordConfirm"]);
       return;
     }
     createUser({ username, password });
-    navigate("/tasks");
   };
 
   const inputClass =
@@ -69,7 +80,7 @@ const Register = () => {
     <>
       <h2 className="text-center text-2xl text-slate-700">Register Account</h2>
       <form onSubmit={(e) => handleRegister(e)} method="POST" action="/">
-        <div className="flex flex-col p-2 m-2">
+        <div className={`flex flex-col p-2 m-2 ${isLoading && "animate-pulse"}`}>
           <div className="flex gap-2 justify-between items-center my-4">
             <label htmlFor="input-username" className="text-nowrap text-slate-800">
               Username:
@@ -127,12 +138,17 @@ const Register = () => {
           {error && <p className="text-center text-red-600">{error}</p>}
           <button
             type="submit"
+            disabled={isLoading}
             className="bg-slate-500 px-2 py-1 mt-6 text-m font-semibold rounded-md text-slate-50"
           >
             Register Account
           </button>
         </div>
       </form>
+      <div className="p-4 bg-red-200 mt-8">
+        Important Note - this site is for demonstration purposes only, and is subject to change and
+        removal at any time.
+      </div>
     </>
   );
 };

@@ -1,4 +1,4 @@
-export const taskValidate = (taskInput, chosen) => {
+export const taskValidate = (taskInput) => {
   // Check if task is empty
   if (!taskInput) return { error: "Please input a task" };
 

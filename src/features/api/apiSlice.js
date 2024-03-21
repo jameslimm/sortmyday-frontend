@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// const API_BASEURL = "https://api.sortmyday.co.uk/";
-const API_BASEURL = "http://localhost:3500/";
+const API_BASEURL = "https://api.sortmyday.co.uk/";
+// const API_BASEURL = "http://localhost:3500/";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -19,7 +19,7 @@ export const apiSlice = createApi({
           },
         };
       },
-      invalidatesTags: [{ type: "User", id: "LIST" }],
+      invalidatesTags: ["User"],
     }),
     logoutUser: builder.mutation({
       query() {
@@ -29,7 +29,7 @@ export const apiSlice = createApi({
           method: "GET",
         };
       },
-      invalidatesTags: [{ type: "User", id: "LIST" }],
+      invalidatesTags: ["User"],
     }),
     loginUser: builder.mutation({
       query(userObj) {
@@ -42,23 +42,42 @@ export const apiSlice = createApi({
           },
         };
       },
-      invalidatesTags: [{ type: "User", id: "LIST" }],
+      invalidatesTags: ["User"],
     }),
     getUser: builder.query({
       query: () => {
         return { url: "user", credentials: "include" };
       },
-      providesTags: [{ type: "User", id: "LIST" }],
+      providesTags: ["User"],
+    }),
+    updateUser: builder.mutation({
+      query(userObj) {
+        return {
+          url: "user",
+          credentials: "include",
+          method: "PUT",
+          body: { ...userObj },
+        };
+      },
+      onQueryStarted(userObj, { dispatch, queryFulfilled }) {
+        const updateUserResult = dispatch(
+          apiSlice.util.updateQueryData("getUser", undefined, (data) => {
+            data.user = { ...data.user, ...userObj };
+          })
+        );
+        queryFulfilled.catch(() => updateUserResult.undo());
+      },
+      invalidatesTags: [{ type: "User" }],
     }),
     getTasks: builder.query({
       query: () => {
         return { url: "tasks", credentials: "include" };
       },
-      providesTags: [{ type: "Tasks", id: "LIST" }],
+      providesTags: ["Tasks"],
     }),
     getTask: builder.query({
       query: (id) => `tasks/${id}`,
-      providesTags: [{ type: "Tasks", id: "LIST" }],
+      providesTags: ["Tasks"],
     }),
     addTask: builder.mutation({
       query(taskObj) {
@@ -71,10 +90,19 @@ export const apiSlice = createApi({
           },
         };
       },
-      invalidatesTags: [{ type: "Tasks", id: "LIST" }],
+      onQueryStarted(taskObj, { dispatch, queryFulfilled }) {
+        const addTaskResult = dispatch(
+          apiSlice.util.updateQueryData("getTasks", undefined, (tasks) => {
+            tasks.push({ ...taskObj, createdAt: new Date().toISOString(), pending: true });
+          })
+        );
+        queryFulfilled.catch(() => addTaskResult.undo());
+      },
+      invalidatesTags: ["Tasks"],
     }),
     updateTask: builder.mutation({
-      query({ _id, ...patch }) {
+      query(taskObj) {
+        const { _id, ...patch } = taskObj;
         return {
           url: `tasks/${_id}`,
           credentials: "include",
@@ -90,6 +118,7 @@ export const apiSlice = createApi({
           })
         );
         queryFulfilled.catch(() => patchResult.undo());
+        // queryFulfilled.catch(dispatch(apiSlice.util.invalidatesTags["Tasks"]));
       },
     }),
     deleteTask: builder.mutation({
@@ -101,7 +130,7 @@ export const apiSlice = createApi({
           body: { _id },
         };
       },
-      onQueryStarted({ _id }, { dispatch, queryFulfilled }) {
+      onQueryStarted(_id, { dispatch, queryFulfilled }) {
         const deleteResult = dispatch(
           apiSlice.util.updateQueryData("getTasks", undefined, (tasks) => {
             const taskIdx = tasks.findIndex((t) => t._id === _id);
@@ -109,6 +138,7 @@ export const apiSlice = createApi({
           })
         );
         queryFulfilled.catch(() => deleteResult.undo());
+        // queryFulfilled.catch(() => dispatch(apiSlice.util.invalidatesTags["Tasks"]));
       },
     }),
   }),
@@ -123,4 +153,5 @@ export const {
   useLoginUserMutation,
   useLogoutUserMutation,
   useCreateUserMutation,
+  useUpdateUserMutation,
 } = apiSlice;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useAddTaskMutation } from "../api/apiSlice";
-import { taskValidate } from "./taskUtils";
+import { taskValidate } from "./taskValidate";
 
 const AddTask = () => {
   const [taskInput, setTaskInput] = useState("");

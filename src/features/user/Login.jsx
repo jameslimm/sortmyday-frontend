@@ -38,7 +38,7 @@ const Login = () => {
     <>
       <h2 className="text-center text-2xl text-slate-700">Log In</h2>
       <form onSubmit={(e) => handleLogin(e)} method="POST" action="/">
-        <div className="flex flex-col p-2 m-2">
+        <div className={`flex flex-col p-2 m-2 ${isLoading && "animate-pulse"}`}>
           <div className="flex gap-2 justify-between items-center my-4">
             <label htmlFor="input-username" className="text-nowrap text-slate-800">
               Username:
@@ -72,7 +72,8 @@ const Login = () => {
           {uiError && <p className="text-center text-red-600">{uiError}</p>}
           <button
             type="submit"
-            className="bg-slate-500 px-2 py-1 mt-6 text-m font-semibold rounded-md text-slate-50"
+            disabled={isLoading}
+            className={`bg-slate-500 px-2 py-1 mt-6 text-m font-semibold rounded-md text-slate-50`}
           >
             Log in
           </button>

@@ -8,14 +8,21 @@ import Layout from "./features/common/Layout";
 import { useGetUserQuery } from "./features/api/apiSlice";
 import Logout from "./features/user/Logout";
 import SplashScreen from "./features/common/SplashScreen";
+import useDarkMode from "./hooks/useDarkMode";
+import LoadingSpinner from "./features/common/LoadingSpinner";
 
 function App() {
-  const { data: user } = useGetUserQuery();
+  const { data: user, isLoading } = useGetUserQuery();
+
+  useDarkMode();
 
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={user ? <TasksList /> : <SplashScreen />} />
+        <Route
+          index
+          element={isLoading ? <LoadingSpinner /> : user ? <TasksList /> : <SplashScreen />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
