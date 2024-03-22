@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useGetUserQuery } from "../api/apiSlice";
 import DarkModeToggle from "./DarkModeToggle";
 import SettingsButton from "./SettingsButton";
+import EditTagsButton from "./EditTagsButton";
 
 const UserModalIndex = ({ setUserModalPage }) => {
   const { data: user } = useGetUserQuery();
@@ -17,7 +18,8 @@ const UserModalIndex = ({ setUserModalPage }) => {
 
       <div className="flex justify-between gap-8">
         <DarkModeToggle />
-        <SettingsButton />
+        {/* <SettingsButton /> */}
+        <EditTagsButton setUserModalPage={setUserModalPage} />
       </div>
       <Link
         to={"/logout"}

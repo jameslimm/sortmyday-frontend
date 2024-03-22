@@ -5,21 +5,27 @@ import AddTask from "./AddTask";
 import Filters from "./Filters";
 import Task from "./Task";
 import NoTasks from "./NoTasks";
+import useTagStore from "../tags/useTagStore";
 
 const TasksList = () => {
   const { data: tasks } = useGetTasksQuery();
   const [filter, setFilter] = useState("");
+  const [tags] = useTagStore();
 
-  useEffect(() => {
-    // if the selected filter no longer has any tasks
-    // assigned, reset the filter to the default.
-    if (tasks && !tasks.some((t) => t.tag === filter)) {
-      setFilter("");
-    }
-  }, [filter, tasks]);
+  // check that there is a valid tag for each task.  If tag
+  // does not exist (has been deleted), set tag to empty string before
+  // proceeding.
+  const tasksClean =
+    tasks &&
+    tasks.map((task) => {
+      if (tags && !tags.find((tag) => tag.id === task.tag)) {
+        return { ...task, tag: "" };
+      }
+      return task;
+    });
 
   const sortedTasks =
-    tasks && tasks.toSorted((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    tasksClean && tasksClean.toSorted((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const filteredTasks = sortedTasks?.filter((task) => (filter !== "" ? task.tag === filter : true));
   return (

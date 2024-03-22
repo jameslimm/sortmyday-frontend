@@ -16,7 +16,7 @@ const useDarkMode = () => {
   }, [dark]);
 
   const toggleDark = () => {
-    updateUser({ prefs: { darkMode: !dark } });
+    updateUser({ prefs: { ...data.user.prefs, darkMode: !dark } });
   };
 
   return [dark, toggleDark];

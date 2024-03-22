@@ -4,6 +4,7 @@ import { MdArrowBack } from "react-icons/md";
 import { useGetUserQuery } from "../api/apiSlice";
 import { useEffect, useRef, useState } from "react";
 import UserModalIndex from "./UserModalIndex";
+import UserModalEditTags from "./UserModalEditTags";
 
 const UserModal = ({ handleClose }) => {
   const [userModalPage, setUserModalPage] = useState("INDEX");
@@ -40,6 +41,10 @@ const UserModal = ({ handleClose }) => {
       <p className="text-3xl font-semibold text-slate-700 dark:text-slate-100">{username}</p>
       {userModalPage && userModalPage === "INDEX" && (
         <UserModalIndex setUserModalPage={setUserModalPage} />
+      )}
+
+      {userModalPage && userModalPage === "EDIT_TAGS" && (
+        <UserModalEditTags setUserModalPage={setUserModalPage} />
       )}
     </div>
   );

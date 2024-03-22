@@ -2,6 +2,7 @@ import { TaskDeleteButton } from "./TaskDeleteButton";
 import { TaskEditButton } from "./TaskEditButton";
 
 import Filters from "./Filters";
+import FilterTag from "./FilterTag";
 
 const TaskViewRender = ({
   state,
@@ -48,7 +49,7 @@ const TaskViewRender = ({
         </label>
         {task.tag && (
           <div className="flex items-center justify-start gap-2">
-            <Filters singleTag={task.tag} />
+            <FilterTag tagId={task.tag} />
           </div>
         )}
       </div>
