@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useGetUserQuery, useUpdateUserMutation } from "../features/api/apiSlice";
+import { useGetUserQuery, useUpdateUserMutation } from "../features/user/userSlice";
 
 const useDarkMode = () => {
   const { data } = useGetUserQuery();

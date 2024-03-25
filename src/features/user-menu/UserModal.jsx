@@ -1,10 +1,9 @@
 import { MdOutlineClose } from "react-icons/md";
 import { MdArrowBack } from "react-icons/md";
-
-import { useGetUserQuery } from "../api/apiSlice";
 import { useEffect, useRef, useState } from "react";
 import UserModalIndex from "./UserModalIndex";
-import UserModalEditTags from "./UserModalEditTags";
+import EditTags from "./EditTags";
+import { useGetUserQuery } from "../user/userSlice";
 
 const UserModal = ({ handleClose }) => {
   const [userModalPage, setUserModalPage] = useState("INDEX");
@@ -44,7 +43,7 @@ const UserModal = ({ handleClose }) => {
       )}
 
       {userModalPage && userModalPage === "EDIT_TAGS" && (
-        <UserModalEditTags setUserModalPage={setUserModalPage} />
+        <EditTags setUserModalPage={setUserModalPage} />
       )}
     </div>
   );

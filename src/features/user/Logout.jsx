@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLogoutUserMutation } from "../api/apiSlice";
+import { useLogoutUserMutation } from "./userSlice";
 
 const Logout = () => {
   const [logoutUser, result] = useLogoutUserMutation();

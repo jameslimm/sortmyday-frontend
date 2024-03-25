@@ -1,14 +1,14 @@
 import TaskView from "./TaskView";
-import TaskEdit from "./TaskEdit";
 import { useState } from "react";
+import EditTask from "./EditTask";
 
-const Task = ({ task, taskPos }) => {
+const Task = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return isEditing ? (
-    <TaskEdit setIsEditing={setIsEditing} task={task} />
+    <EditTask setIsEditing={setIsEditing} task={task} />
   ) : (
-    <TaskView setIsEditing={setIsEditing} task={task} taskPos={taskPos} />
+    <TaskView setIsEditing={setIsEditing} task={task} />
   );
 };
 

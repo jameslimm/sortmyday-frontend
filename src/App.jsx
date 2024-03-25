@@ -5,11 +5,11 @@ import TasksList from "./features/tasks/TasksList";
 
 import "./app.css";
 import Layout from "./features/common/Layout";
-import { useGetUserQuery } from "./features/api/apiSlice";
 import Logout from "./features/user/Logout";
 import SplashScreen from "./features/common/SplashScreen";
 import useDarkMode from "./hooks/useDarkMode";
-import LoadingSpinner from "./features/common/LoadingSpinner";
+import LoadingSpinner from "./features/common/loadingSpinner/LoadingSpinner";
+import { useGetUserQuery } from "./features/user/userSlice";
 
 function App() {
   const { data: user, isLoading } = useGetUserQuery();

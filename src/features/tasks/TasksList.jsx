@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useGetTasksQuery } from "../api/apiSlice";
+import { useState } from "react";
 
 import AddTask from "./AddTask";
 import Filters from "./Filters";
 import Task from "./Task";
 import NoTasks from "./NoTasks";
 import useTagStore from "../tags/useTagStore";
+import { useGetTasksQuery } from "./tasksSlice";
 
 const TasksList = () => {
   const { data: tasks } = useGetTasksQuery();
@@ -37,8 +37,7 @@ const TasksList = () => {
       </div>
       {filteredTasks && filteredTasks.length === 0 && <NoTasks />}
 
-      {filteredTasks &&
-        filteredTasks.map((task, i) => <Task key={task._id} task={task} taskPos={i} />)}
+      {filteredTasks && filteredTasks.map((task) => <Task key={task._id} task={task} />)}
     </>
   );
 };

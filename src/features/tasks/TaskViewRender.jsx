@@ -1,7 +1,6 @@
 import { TaskDeleteButton } from "./TaskDeleteButton";
 import { TaskEditButton } from "./TaskEditButton";
 
-import Filters from "./Filters";
 import FilterTag from "./FilterTag";
 
 const TaskViewRender = ({

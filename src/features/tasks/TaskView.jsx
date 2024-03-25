@@ -1,16 +1,15 @@
-import { useDeleteTaskMutation, useUpdateTaskMutation } from "../api/apiSlice";
 import { Transition } from "react-transition-group";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TaskViewRender from "./TaskViewRender";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "./tasksSlice";
 
-const TaskView = ({ task, setIsEditing, taskPos }) => {
+const TaskView = ({ task, setIsEditing }) => {
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
-  const [inView, setInView] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => setInView(true), 10 * taskPos);
-  }, [taskPos, task]);
+  // to prevent glitches due to optimistic adding of new
+  // tasks, don't animate in the first task on the screen.
+  const [inView, setInView] = useState(true);
 
   const nodeRef = useRef(null);
 
@@ -19,6 +18,7 @@ const TaskView = ({ task, setIsEditing, taskPos }) => {
   };
 
   const handleDeleteClick = () => {
+    // fade out the task item and then trigger the deletion
     setInView(false);
     setTimeout(() => deleteTask(task._id), 150);
   };

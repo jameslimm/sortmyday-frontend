@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
-import { IoIosAddCircle } from "react-icons/io";
+
 import useTagStore from "./useTagStore";
 import {
   formatTag,

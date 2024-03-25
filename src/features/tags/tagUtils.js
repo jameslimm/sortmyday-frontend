@@ -1,36 +1,61 @@
 const tailwindColors = {
-  slate: { classNormal: "bg-slate-100", classHover: "bg-slate-300" },
-  red: { classNormal: "bg-red-100", classHover: "bg-red-300" },
-  orange: { classNormal: "bg-orange-100", classHover: "bg-orange-300" },
-  amber: { classNormal: "bg-amber-100", classHover: "bg-amber-300" },
-  yellow: { classNormal: "bg-yellow-100", classHover: "bg-yellow-300" },
-  lime: { classNormal: "bg-lime-100", classHover: "bg-lime-300" },
-  green: { classNormal: "bg-green-100", classHover: "bg-green-300" },
-  emerald: { classNormal: "bg-emerald-100", classHover: "bg-emerald-300" },
-  teal: { classNormal: "bg-teal-100", classHover: "bg-teal-300" },
-  sky: { classNormal: "bg-sky-100", classHover: "bg-sky-300" },
-  blue: { classNormal: "bg-blue-100", classHover: "bg-blue-300" },
-  indigo: { classNormal: "bg-indigo-100", classHover: "bg-indigo-300" },
-  violet: { classNormal: "bg-violet-100", classHover: "bg-violet-300" },
-  fuchsia: { classNormal: "bg-fuchsia-100", classHover: "bg-fuchsia-300" },
-  pink: { classNormal: "bg-pink-100", classHover: "bg-pink-300" },
-  rose: { classNormal: "bg-rose-100", classHover: "bg-rose-300" },
+  slate: { classNormal: "bg-slate-200", classHover: "bg-slate-400" },
+  red: { classNormal: "bg-red-200", classHover: "bg-red-400" },
+  orange: { classNormal: "bg-orange-200", classHover: "bg-orange-400" },
+  amber: { classNormal: "bg-amber-200", classHover: "bg-amber-400" },
+  yellow: { classNormal: "bg-yellow-200", classHover: "bg-yellow-400" },
+  lime: { classNormal: "bg-lime-200", classHover: "bg-lime-400" },
+  green: { classNormal: "bg-green-200", classHover: "bg-green-400" },
+  emerald: { classNormal: "bg-emerald-200", classHover: "bg-emerald-400" },
+  teal: { classNormal: "bg-teal-200", classHover: "bg-teal-400" },
+  sky: { classNormal: "bg-sky-200", classHover: "bg-sky-400" },
+  blue: { classNormal: "bg-blue-200", classHover: "bg-blue-400" },
+  indigo: { classNormal: "bg-indigo-200", classHover: "bg-indigo-400" },
+  violet: { classNormal: "bg-violet-200", classHover: "bg-violet-400" },
+  fuchsia: { classNormal: "bg-fuchsia-200", classHover: "bg-fuchsia-400" },
+  pink: { classNormal: "bg-pink-200", classHover: "bg-pink-400" },
+  rose: { classNormal: "bg-rose-200", classHover: "bg-rose-400" },
 };
 
 export const getTagColorClassesFromColor = (color) => {
   // returns the normal class and the hover highlight Tailwind class
   // name for any given text color value.
 
-  return {
-    classNormal: tailwindColors[color].classNormal,
-    classHover: tailwindColors[color].classHover,
-  };
+  // check that parameter color exists in the tailwind colors
+  // array.  If not, return a default color.
+  if (color in tailwindColors) {
+    return {
+      classNormal: tailwindColors[color].classNormal,
+      classHover: tailwindColors[color].classHover,
+    };
+  } else {
+    return {
+      classNormal: "bg-slate-100",
+      classHover: "bg-slate-300",
+    };
+  }
 };
 
 export const getRandomTagColor = () => {
   // returns a random color for a new tag
   const colKeys = Object.keys(tailwindColors);
   return colKeys[Math.floor(Math.random() * colKeys.length)];
+};
+
+export const getNextTagColor = (color) => {
+  // takes a color and returns the next color in the color array,
+  // returning to the beginning again if needed.
+
+  // get all color keys into an array.
+  const colKeys = Object.keys(tailwindColors);
+
+  // find the position of the argument color
+  const colIdx = colKeys.findIndex((col) => col === color);
+
+  // not found?  Return the color from index 0.
+  if (colIdx === -1) return colKeys[0];
+
+  return colKeys[colIdx < colKeys.length - 1 ? colIdx + 1 : 0];
 };
 
 export const getTagIdFromTag = (tag) => {

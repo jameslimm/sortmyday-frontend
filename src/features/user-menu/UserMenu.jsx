@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useGetUserQuery } from "../api/apiSlice";
 import UserModal from "./UserModal";
+import { useGetUserQuery } from "../user/userSlice";
 
 const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLoginUserMutation } from "../api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "./userSlice";
 
 const Login = () => {
   const [loginUser, result] = useLoginUserMutation();

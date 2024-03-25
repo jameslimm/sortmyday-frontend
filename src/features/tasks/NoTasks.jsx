@@ -5,14 +5,12 @@ const NoTasks = () => {
         <h3 className="bg-slate-600 px-2 py-1 text-center">No Todos!</h3>
         <p className="text-slate-600 p-4 font-thin">
           Get started with SortMyDay by adding a task that you need to get done. Type the task into
-          the box above, eg:
+          the box above.
         </p>
-        <p className="text-slate-600 p-4 font-sm">Mow the lawn</p>
         <p className="text-slate-600 p-4 font-thin">
-          You can sort and filter your tasks by tagging them. To create a task with a tag, just add
-          a # with the tag at the end of you task:
+          You can choose to add a tag to the task by choosing a tag from the list. Add new tags (or
+          change existing tag) by going into the user menu at the top of the screen.
         </p>
-        <p className="text-slate-600 p-4 font-sm">Repaint the lounge #home</p>
       </div>
     </>
   );
