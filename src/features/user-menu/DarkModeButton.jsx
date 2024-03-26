@@ -7,16 +7,20 @@ const DarkModeToggle = () => {
   const [dark, toggleDark] = useDarkMode();
 
   return (
-    <button onClick={toggleDark} className="cursor-pointer p-2">
+    <button onClick={toggleDark} className="cursor-pointer p-2" aria-labelledby="darkmode">
       {dark ? (
         <>
           <MdDarkMode className="w-16 h-16 text-white rounded-full p-2" />
-          <span className="text-white">Dark Mode</span>
+          <span id="darkmode" className="text-white">
+            Dark Mode
+          </span>
         </>
       ) : (
         <>
           <MdLightMode className="w-16 h-16 text-black rounded-full p-2" />
-          <span className="text-black">Dark Mode</span>
+          <span id="darkmode" className="text-black">
+            Dark Mode
+          </span>
         </>
       )}
     </button>

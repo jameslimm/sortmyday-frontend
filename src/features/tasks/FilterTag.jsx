@@ -18,14 +18,14 @@ const FilterTag = ({ tagId, filter, setFilter }) => {
   const tagColor = getTagColorClassesFromColor(color).classNormal || "bg-slate-50";
 
   return (
-    <span
+    <button
       onClick={() => setFilter && setFilter(id)}
       className={`block ${tagColor} px-2 rounded-md text-sm cursor-pointer select-none ${
         filter === id && FILTERED_CLASS
       }`}
     >
       {formattedTag}
-    </span>
+    </button>
   );
 };
 

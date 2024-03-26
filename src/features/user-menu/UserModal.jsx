@@ -29,12 +29,18 @@ const UserModal = ({ handleClose }) => {
     >
       {userModalPage && userModalPage !== "INDEX" && (
         <MdArrowBack
+          tabIndex={0}
+          role="button"
+          aria-label="back button"
           onClick={() => setUserModalPage("INDEX")}
           className="w-10 h-10 absolute left-2 top-2 hover:bg-slate-300 bg-slate-200 rounded-full p-1"
         />
       )}
       <MdOutlineClose
         onClick={handleClose}
+        tabIndex={0}
+        role="button"
+        aria-label="close menu"
         className="w-8 h-8 absolute right-1 top-1 cursor-pointer hover:bg-slate-100 bg-slate-300 rounded-full p-1"
       />
       <p className="text-3xl font-semibold text-slate-700 dark:text-slate-100">{username}</p>
