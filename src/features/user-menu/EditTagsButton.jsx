@@ -3,7 +3,7 @@ import { LiaHashtagSolid } from "react-icons/lia";
 const EditTagsButton = ({ setUserModalPage }) => {
   return (
     <button
-      className="cursor-pointer p-2"
+      className="cursor-pointer p-2 flex flex-col items-center"
       aria-labelledby="edittags"
       onClick={() => setUserModalPage("EDIT_TAGS")}
     >

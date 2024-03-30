@@ -6,10 +6,10 @@ import TasksList from "./features/tasks/TasksList";
 import "./app.css";
 import Layout from "./features/common/Layout";
 import Logout from "./features/user/Logout";
-import SplashScreen from "./features/common/SplashScreen";
 import useDarkMode from "./hooks/useDarkMode";
 import LoadingSpinner from "./features/common/loadingSpinner/LoadingSpinner";
 import { useGetUserQuery } from "./features/user/userSlice";
+import HomeScreen from "./features/home-screen/HomeScreen";
 
 function App() {
   const { data: user, isLoading } = useGetUserQuery();
@@ -21,7 +21,7 @@ function App() {
       <Route element={<Layout />}>
         <Route
           index
-          element={isLoading ? <LoadingSpinner /> : user ? <TasksList /> : <SplashScreen />}
+          element={isLoading ? <LoadingSpinner /> : user ? <TasksList /> : <HomeScreen />}
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

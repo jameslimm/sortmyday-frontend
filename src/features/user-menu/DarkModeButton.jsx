@@ -7,7 +7,11 @@ const DarkModeToggle = () => {
   const [dark, toggleDark] = useDarkMode();
 
   return (
-    <button onClick={toggleDark} className="cursor-pointer p-2" aria-labelledby="darkmode">
+    <button
+      onClick={toggleDark}
+      className="cursor-pointer p-2 flex flex-col items-center"
+      aria-labelledby="darkmode"
+    >
       {dark ? (
         <>
           <MdDarkMode className="w-16 h-16 text-white rounded-full p-2" />
