@@ -3,8 +3,8 @@ export const taskValidate = (task) => {
   if (!task) return { error: "Please input a task" };
 
   // enforce min and max lengths for tag and task
-  if (task.length < 3 || task.length > 30)
-    return { error: "Task must be between 3 and 30 characters" };
+  if (task.length < 3 || task.length > 50)
+    return { error: "Task must be between 3 and 50 characters" };
 
   // make sure no individual task word is over 20 characters
   if (task.split(" ").some((word) => word.length > 15))

@@ -27,6 +27,8 @@ const AddTaskForm = ({
         onChange={handleInputChange}
         onBlur={() => setUiError("")}
         ref={taskInputRef}
+        minLength={3}
+        maxLength={50}
       />
       <TagPickerSelect tagSelect={tagSelect} setTagSelect={setTagSelect} />
 

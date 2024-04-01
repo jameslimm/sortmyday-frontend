@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./Footer";
 
-//h-[calc(100dvh_-_2.5rem)]
 const Layout = () => {
   return (
     <div className="flex flex-col h-screen">

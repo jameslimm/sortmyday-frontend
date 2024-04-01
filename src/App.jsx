@@ -1,15 +1,17 @@
-import { Route, Routes } from "react-router-dom";
 import Login from "./features/user/Login";
 import Register from "./features/user/Register";
 import TasksList from "./features/tasks/TasksList";
-
-import "./app.css";
 import Layout from "./features/common/Layout";
 import Logout from "./features/user/Logout";
-import useDarkMode from "./hooks/useDarkMode";
 import LoadingSpinner from "./features/common/loadingSpinner/LoadingSpinner";
-import { useGetUserQuery } from "./features/user/userSlice";
 import HomeScreen from "./features/home-screen/HomeScreen";
+
+import "./app.css";
+
+import useDarkMode from "./hooks/useDarkMode";
+
+import { Route, Routes } from "react-router-dom";
+import { useGetUserQuery } from "./features/user/userSlice";
 
 function App() {
   const { data: user, isLoading } = useGetUserQuery();

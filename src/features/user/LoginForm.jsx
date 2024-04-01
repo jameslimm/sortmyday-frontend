@@ -66,6 +66,11 @@ const LoginForm = ({
           Log in
         </button>
       </form>
+
+      <div className="p-4 bg-red-200 mt-8">
+        Important Note - this site is for demonstration purposes only, and is subject to change and
+        removal at any time.
+      </div>
     </div>
   );
 };

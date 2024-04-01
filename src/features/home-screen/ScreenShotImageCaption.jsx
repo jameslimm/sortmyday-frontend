@@ -2,7 +2,7 @@ import { InView } from "react-intersection-observer";
 
 const ScreenShotImageCaption = ({ imageSrc, caption, captionColor, position }) => {
   return (
-    <InView threshold={0.25}>
+    <InView threshold={0.5}>
       {({ inView, ref }) => {
         // Parent div dynamic classes
         const divOpacity = inView ? "opacity-100" : "opacity-0";
@@ -21,7 +21,7 @@ const ScreenShotImageCaption = ({ imageSrc, caption, captionColor, position }) =
         return (
           <div
             ref={ref}
-            className={`w-full sm:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto flex flex-col transition-opacity duration-500 ${divOpacity} ${divFlexPos}`}
+            className={`w-full sm:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto flex flex-col transition-opacity duration-700 ${divOpacity} ${divFlexPos}`}
           >
             <div className="w-1/2 shadow-lg p-5 bg-slate-500/30 my-8 relative">
               <img
