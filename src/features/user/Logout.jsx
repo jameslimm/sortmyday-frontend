@@ -9,14 +9,14 @@ const Logout = () => {
 
   useEffect(() => {
     logoutUser && logoutUser();
-  }, []);
+  }, [logoutUser]);
 
   useEffect(() => {
     if (isSuccess) {
       navigate("/");
       navigate(0);
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
 
   return <h1>Logging Out...</h1>;
 };

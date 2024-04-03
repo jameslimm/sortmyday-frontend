@@ -1,48 +1,50 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "./userSlice";
+
 import LoginForm from "./LoginForm";
 
 const Login = () => {
-  const [loginUser, result] = useLoginUserMutation();
-  const { isError, isLoading, isSuccess } = result;
-  const [uiError, setUiError] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // Import functions from RTK Query API slice
+  const [loginUser, result] = useLoginUserMutation();
+  const { isError, isLoading, isSuccess } = result;
+
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
-    setUiError(isError && result.error.data.message);
-  }, [isError]);
+    if (isError) {
+      const { message, errors } = result?.error?.data || {};
+      console.log(message, errors);
+      setErrors(errors);
+    }
+  }, [isError, result]);
 
   useEffect(() => {
     if (isSuccess) navigate("/");
   }, [isSuccess, navigate]);
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-  const handleLogin = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setUiError("Missing username or password");
+
+    const { username, password } = Object.fromEntries(new FormData(e.currentTarget));
+
+    // Local validation
+    const errors = {};
+    if (!username) errors.username = "Username required.";
+    if (!password) errors.password = "Password required.";
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
       return;
     }
 
+    // Make server request
     loginUser({ username, password });
   };
 
-  const loginFormProps = {
-    handleLogin,
-    isLoading,
-    username,
-    handleUsernameChange,
-    password,
-    handlePasswordChange,
-    uiError,
-  };
-
-  return <LoginForm {...loginFormProps} />;
+  return <LoginForm handleSubmit={handleSubmit} isLoading={isLoading} errors={errors} />;
 };
 
 export default Login;
