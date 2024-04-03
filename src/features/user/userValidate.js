@@ -1,45 +1,25 @@
-export const userValidate = (username, password, passwordConfirm) => {
-  if (!username) {
-    return { error: "Missing username", errorFields: ["username"] };
+export const userValidate = (username = "", password = "", passwordConfirm = "") => {
+  const errors = {};
+
+  if (!username) errors.username = "Username is required.";
+  if (!password) errors.password = "Password is required";
+
+  if (username.length > 14 || username.length < 4)
+    errors.username = "Username must be between 4 and 14 characters.";
+  if (password.length > 14 || password.length < 4)
+    errors.password = "Password must be between 4 and 14 characters.";
+  if (passwordConfirm.length > 14 || passwordConfirm.length < 4)
+    errors.passwordConfirm = "Password must be between 4 and 14 characters.";
+
+  if (!new RegExp("^[a-zA-Z]+$").test(username))
+    errors.username =
+      "Username can have only characters from A-Z or a-z (no spaces or special characters)";
+
+  // if both password fields are correct so far, check that they match.
+  if (!("password" in errors) && !("passwordConfirm" in errors) && password !== passwordConfirm) {
+    errors.passwordConfirm = "Password fields don't match";
+    errors.password = "Password fields don't match";
   }
 
-  if (!password) {
-    return {
-      error: "Missing password",
-      errorFields: ["password", "passwordConfirm"],
-    };
-  }
-
-  if (username.length > 14 || username.length < 4) {
-    return {
-      error: "Username must be between 4 and 14 characters.",
-      errorFields: ["username"],
-    };
-  }
-
-  if (password.length > 14 || password.length < 4) {
-    return {
-      error: "Password must be between 4 and 14 characters.",
-      errorFields: ["password", "passwordConfirm"],
-    };
-  }
-
-  if (!new RegExp("^[a-zA-Z]+$").test(username)) {
-    return {
-      error: "Username can have only characters from A-Z or a-z (no spaces or special characters)",
-      errorFields: ["username"],
-    };
-  }
-
-  if (password !== passwordConfirm) {
-    return {
-      error: "Password fields don't match",
-      errorFields: ["password", "passwordConfirm"],
-    };
-  }
-
-  return {
-    error: null,
-    errorFields: null,
-  };
+  return { ...errors };
 };

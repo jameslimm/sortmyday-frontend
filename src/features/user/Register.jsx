@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateUserMutation } from "./userSlice";
-import RegisterForm from "./RegisterForm";
 import { userValidate } from "./userValidate";
 
-const Register = () => {
-  // Input form state
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+import RegisterForm from "./RegisterForm";
 
+const Register = () => {
   const navigate = useNavigate();
 
   // Import functions from RTK Query API slice
@@ -17,63 +13,43 @@ const Register = () => {
   const { isError, isLoading, isSuccess } = result;
 
   // Set state for the general error message...
-  const [error, setError] = useState("");
-  // And an array of fields/input ids to highlight in the event of an error
-  const [errorFields, setErrorFields] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handlePasswordConfirmChange = (e) => setPasswordConfirm(e.target.value);
-
-  const handleFieldHasFocus = () => {
-    setError("");
-    setErrorFields([]);
-  };
-
+  // API response - error
   useEffect(() => {
     if (isError) {
-      const { message, errorFields } = result?.error?.data || {};
-
-      setError(message || isError);
-      setErrorFields([...errorFields] || []);
+      const { message, errors } = result?.error?.data || {};
+      console.log(message, errors);
+      setErrors(errors);
     }
   }, [isError, result]);
 
+  // API response - success
   useEffect(() => {
     if (isSuccess) navigate("/");
   }, [isSuccess, navigate]);
 
-  const handleRegister = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    setError("");
-    setErrorFields([]);
+    // Get form data
+    const { username, password, passwordConfirm } = Object.fromEntries(
+      new FormData(e.currentTarget)
+    );
 
-    const { error, errorFields } = userValidate(username, password, passwordConfirm);
-    if (error || errorFields) {
-      setError(error);
-      setErrorFields(errorFields);
+    // Local data validation
+    const errors = userValidate(username, password, passwordConfirm);
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
       return;
     }
 
+    // Make server request
     createUser({ username, password });
   };
 
-  const registerFormProps = {
-    handleRegister,
-    isLoading,
-    username,
-    handleFieldHasFocus,
-    handleUsernameChange,
-    errorFields,
-    password,
-    handlePasswordChange,
-    passwordConfirm,
-    handlePasswordConfirmChange,
-    error,
-  };
-
-  return <RegisterForm {...registerFormProps} />;
+  return <RegisterForm handleSubmit={handleSubmit} isLoading={isLoading} errors={errors} />;
 };
 
 export default Register;
