@@ -3,13 +3,11 @@ import screenListLight from "../../assets/screen-list-light.png";
 import screenTagsDark from "../../assets/screen-tags-dark.png";
 import screenDarkMode from "../../assets/screen-dark-mode.png";
 import screenMenuDark from "../../assets/screen-menu-dark.png";
-import backDrop from "../../assets/backdrop.jpg";
 
 const HomeScreenShots = () => {
   return (
     <div
-      style={{ backgroundImage: `url("${backDrop}"` }}
-      className={`bg-cover relative shadow-lg w-full my-16 px-2 py-5 border-solid border-t-2 border-slate-400
+      className={`bg-cover relative bg-[image:var(--backdrop-640)] sm:bg-[image:var(--backdrop-1280)] shadow-lg w-full my-16 px-2 py-5 border-solid border-t-2 border-slate-400
     `}
     >
       <div className="absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 w-fit text-nowrap text-center text-xl backdrop-blur-sm px-5 py-1 font-thin rounded-lg border-solid border-2 bg-orange-300/40 border-orange-300">

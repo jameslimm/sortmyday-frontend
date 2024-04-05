@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --backdrop-640: url("/src/assets/backdrop-640.jpg");
+  --backdrop-1280: url("/src/assets/backdrop-1280.jpg");
+  --backdrop-2000: url("/src/assets/backdrop-2000.jpg");
+}
+
 @layer base {
   body {
     @apply bg-slate-50 dark:bg-slate-700;
