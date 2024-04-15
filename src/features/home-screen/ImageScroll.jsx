@@ -4,10 +4,11 @@ import { useState } from "react";
 import ImageScrollView from "./ImageScrollView";
 
 const ImageScroll = ({ images }) => {
+  // A generic component for an animated slider effect.
+
   const [currentSliderWidth, setCurrentSliderWidth] = useState(0);
   const [totalImageWidth, setTotalImageWidth] = useState(0);
   const [isTransformed, setIsTransformed] = useState(false);
-
   const [numImagesLoaded, setNumImagesLoaded] = useState(0);
 
   const scrollRef = useRef(null);

@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import Footer from "./Footer";
 
 const Layout = () => {
+  // Setup a Layout wrapper for the application using React Router Outlet
   return (
     <div className="flex flex-col h-screen">
       <Header />

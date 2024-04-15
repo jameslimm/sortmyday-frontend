@@ -1,3 +1,4 @@
+// Define a set of TailWind color classes that can be assigned to tags
 const tailwindColors = {
   slate: { classNormal: "bg-slate-200", classHover: "bg-slate-400" },
   red: { classNormal: "bg-red-200", classHover: "bg-red-400" },
@@ -60,7 +61,12 @@ export const getNextTagColor = (color) => {
 
 export const getTagIdFromTag = (tag) => {
   // create a simple randomised string ID for a given tag name.
+  // for example - a tag of "Home" could create a tagId of "hom234"
+
+  // String bit
   const tagIdString = tag.length >= 3 ? tag.substring(0, 3).toLowerCase() : tag.toLowerCase();
+
+  // Random number bit
   const randomNumString = String(Math.round(Math.random() * 1000));
 
   return tagIdString + randomNumString;

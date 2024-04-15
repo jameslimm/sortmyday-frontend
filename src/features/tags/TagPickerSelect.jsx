@@ -3,12 +3,13 @@ import useTagStore from "./useTagStore";
 import { formatTag, getTagColorClassesFromColor, getTagFromTagId } from "./tagUtils";
 
 const TagPickerSelect = ({ tagSelect, setTagSelect }) => {
-  // local state
+  // Create a select element with the available tags, styled with the
+  // defined tag colors.
 
-  // get the stored user tags
+  // get the stored user tags, save to tags array.
   const [tags] = useTagStore();
 
-  // add a blank "no tag" tag
+  // add a blank "no tag" tag to the tags array.
   const tagsUi = [{ id: "", tag: "No tag", color: "slate" }, ...tags];
 
   // get the color class of the currently selected tag for the select

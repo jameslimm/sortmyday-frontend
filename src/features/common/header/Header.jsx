@@ -4,6 +4,8 @@ import LoginLink from "./LoginLink";
 import { useGetUserQuery } from "../../user/userSlice";
 
 const Header = () => {
+  // Header component.  Check if there is a user account (i.e. a user is logged in)
+  // - if so, show the user menu, otherwise show a login link.
   const { data: user } = useGetUserQuery();
 
   return (
