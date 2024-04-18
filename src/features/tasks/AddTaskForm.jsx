@@ -1,4 +1,5 @@
 import TagPickerSelect from "../tags/TagPickerSelect";
+import DueDateInput from "./DueDateInput";
 
 const AddTaskForm = ({
   handleAddTodoSubmit,
@@ -31,6 +32,7 @@ const AddTaskForm = ({
         maxLength={50}
       />
       <TagPickerSelect tagSelect={tagSelect} setTagSelect={setTagSelect} />
+      <DueDateInput />
 
       <button
         type="submit"
