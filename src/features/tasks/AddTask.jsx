@@ -5,8 +5,11 @@ import { useAddTaskMutation } from "./tasksSlice";
 
 const AddTask = () => {
   // Local state
+
+  // TODO - Replace with React Aria components
   const [taskInput, setTaskInput] = useState("");
   const [tagSelect, setTagSelect] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [uiError, setUiError] = useState("");
 
   // API State
@@ -37,10 +40,12 @@ const AddTask = () => {
     e.preventDefault();
     taskInputRef.current && taskInputRef.current.focus();
 
+    // Validate the todo task
     const { error, task: title } = taskValidate(taskInput);
     if (error) return setUiError(error);
 
-    addTask({ title, tag: tagSelect });
+    // Submit task to the API slice
+    addTask({ title, tag: tagSelect, due: dueDate });
     setTaskInput("");
   };
 
@@ -53,6 +58,8 @@ const AddTask = () => {
     taskInputRef,
     uiError,
     setUiError,
+    dueDate,
+    setDueDate,
   };
   return <AddTaskForm {...addTaskProps} />;
 };

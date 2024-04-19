@@ -14,6 +14,8 @@ import { GrCaretNext } from "react-icons/gr";
 import { GrCaretPrevious } from "react-icons/gr";
 
 const CalendarDialog = ({ triggerRef, isOpen, onOpenChange, isoDate, setIsoDate }) => {
+  // React Aria calendar - accepts and returns date in a custom format object
+
   const handleDateChange = (calObj) => {
     // handle a click on a calendar date.  A custom calObj object is passed, use it's
     // toDate method to convert to JS date then convert to ISO string and save
