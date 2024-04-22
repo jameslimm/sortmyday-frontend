@@ -28,6 +28,10 @@ const EditTask = ({ task, setIsEditing }) => {
     setEditedTask({ ...editedTask, title: e.target.value });
   };
 
+  const handleSetDueDate = (due) => {
+    setEditedTask({ ...editedTask, due });
+  };
+
   const handleSetFilter = (tag) => {
     setEditedTask({ ...editedTask, tag });
   };
@@ -36,11 +40,13 @@ const EditTask = ({ task, setIsEditing }) => {
     e.preventDefault();
     taskInputRef.current && taskInputRef.current.focus();
 
-    const { error, task, tag } = taskValidate(editedTask.title);
+    const { error, task } = taskValidate(editedTask.title);
 
     if (error) return setUiError(error);
 
-    updateTask({ ...editedTask, title: task, tag: tag || editedTask.tag || "inbox" });
+    console.log(editedTask);
+
+    updateTask({ ...editedTask, title: task });
     setIsEditing(false);
   };
 
@@ -54,6 +60,7 @@ const EditTask = ({ task, setIsEditing }) => {
     handleTaskChange,
     taskInputRef,
     handleSetFilter,
+    handleSetDueDate,
     uiError,
     handleCancel,
   };

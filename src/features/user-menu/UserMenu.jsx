@@ -19,12 +19,12 @@ const UserMenu = () => {
 
   return (
     <>
-      <div
+      <button
         onClick={handleAccountIconClick}
         className="flex items-center justify-center cursor-pointer bg-orange-400 min-w-10 min-h-10 rounded-full mx-4 mt-2 shadow-orange-100 border-solid border-orange-500 border-2"
       >
         <span className="text-2xl font-mono text-white">{userLetter}</span>
-      </div>
+      </button>
       {isMenuOpen && <UserModal handleClose={handleCloseModal} />}
     </>
   );

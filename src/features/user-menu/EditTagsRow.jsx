@@ -28,17 +28,19 @@ const EditTagsRow = ({ t, handleColorClick, handleDeleteClick }) => {
     >
       <RiDraggable
         {...listeners}
+        tabIndex={0}
         className="w-6 h-6 group-hover:visible invisible text-slate-700"
       />
       <p className="text-xl flex-1 text-slate-700 select-none">{formatTag(tag)}</p>
-      <IoColorPaletteOutline
-        className="min-w-7 w-7 min-h-7 h-7 text-slate-700 cursor-pointer"
-        onClick={() => handleColorClick(id)}
-      />
-      <RiDeleteBinLine
-        className="min-w-7 w-7 min-h-7 h-7 text-slate-700 cursor-pointer"
-        onClick={() => handleDeleteClick(id)}
-      />
+      <button onClick={() => handleColorClick(id)}>
+        <IoColorPaletteOutline
+          className="min-w-7 w-7 min-h-7 h-7 text-slate-700"
+          onClick={() => handleColorClick(id)}
+        />
+      </button>
+      <button onClick={() => handleDeleteClick(id)}>
+        <RiDeleteBinLine className="min-w-7 w-7 min-h-7 h-7 text-slate-700 cursor-pointer" />
+      </button>
     </div>
   );
 };

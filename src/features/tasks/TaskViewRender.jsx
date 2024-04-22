@@ -2,6 +2,7 @@ import { TaskDeleteButton } from "./TaskDeleteButton";
 import { TaskEditButton } from "./TaskEditButton";
 
 import FilterTag from "./FilterTag";
+import DueDateTaskView from "./DueDateTaskView";
 
 const TaskViewRender = ({
   state,
@@ -52,6 +53,9 @@ const TaskViewRender = ({
           </div>
         )}
       </div>
+      {!task.completed && !pending && task.due && task.due !== "" && (
+        <DueDateTaskView isoDueDate={task.due} />
+      )}
       {!task.completed && !pending && <TaskEditButton setIsEditing={setIsEditing} />}
       {!pending && <TaskDeleteButton handleDeleteClick={handleDeleteClick} />}
     </div>

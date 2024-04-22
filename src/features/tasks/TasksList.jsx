@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import AddTask from "./AddTask";
 import Filters from "./Filters";
@@ -11,6 +11,12 @@ const TasksList = () => {
   const { data: tasks } = useGetTasksQuery();
   const [filter, setFilter] = useState("");
   const [tags] = useTagStore();
+
+  useEffect(() => {
+    // ensure that the selected filter tag exists
+    // in the tags array.  If not, set the filter to "".
+    if (!tags.find((tag) => tag.id === filter)) setFilter("");
+  }, [tags, filter]);
 
   const sortedTasks = useMemo(() => {
     // check that there is a valid tag for each task.  If tag
