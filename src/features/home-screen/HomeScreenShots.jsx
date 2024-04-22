@@ -3,6 +3,7 @@ import screenListLight from "../../assets/screen-list-light.png";
 import screenTagsDark from "../../assets/screen-tags-dark.png";
 import screenDarkMode from "../../assets/screen-dark-mode.png";
 import screenMenuDark from "../../assets/screen-menu-dark.png";
+import screenDueDate from "../../assets/screen-duedate.png";
 
 const HomeScreenShots = () => {
   return (
@@ -37,10 +38,16 @@ const HomeScreenShots = () => {
         position={"right"}
       />
       <ScreenShotImageCaption
+        imageSrc={screenDueDate}
+        caption={"Prioritise and focus your precious time by giving your tasks a due date."}
+        captionColor={"bg-purple-200"}
+        position={"left"}
+      />
+      <ScreenShotImageCaption
         imageSrc={screenMenuDark}
         caption={"Quickly create a user account to securely store your task list on the cloud."}
         captionColor={"bg-yellow-200"}
-        position={"left"}
+        position={"right"}
       />
       <div className="absolute bottom-0 left-1/2 translate-y-1/2 -translate-x-1/2 w-fit text-nowrap text-center text-sm backdrop-blur-sm px-5 py-1 font-thin rounded-lg border-solid border-2 bg-blue-300/40 border-blue-300">
         Photo by{" "}

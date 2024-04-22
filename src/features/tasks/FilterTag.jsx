@@ -6,15 +6,17 @@ const FilterTag = ({ tagId, filter, setFilter }) => {
 
   let { tag, id, color } = getTagFromTagId(tagId, tags);
 
-  if (id === "") {
-    tag = "All";
-  }
-
   // apply these tailwind classes to the tag that has been selected
   // for filtering the tasks.
 
+  // If the id is empty - for no tag selected - use "all"
+  // as the filter label.
+  if (id === "") {
+    tag = "all";
+  }
+
   const formattedTag = formatTag(tag);
-  const tagColor = getTagColorClassesFromColor(color).classNormal || "bg-slate-50";
+  const tagColor = getTagColorClassesFromColor(color);
 
   const FILTERED_CLASS = "font-bold";
 

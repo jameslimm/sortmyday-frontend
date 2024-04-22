@@ -42,6 +42,7 @@ const TasksList = () => {
     return sortedTasks?.filter((task) => (filter !== "" ? task.tag === filter : true));
   }, [filter, sortedTasks]);
 
+  console.log(filteredTasks);
   return (
     <>
       <AddTask />
@@ -51,7 +52,12 @@ const TasksList = () => {
       </div>
       {filteredTasks && filteredTasks.length === 0 && <NoTasks />}
 
-      {filteredTasks && filteredTasks.map((task) => <Task key={task._id} task={task} />)}
+      {/* The React key should be the unique task id created by MongoDB... or for pending items
+      with no _id value that will soon be invalidated just use a random number */}
+      {filteredTasks &&
+        filteredTasks.map((task) => (
+          <Task key={task._id || Math.round(Math.random() * 100000)} task={task} />
+        ))}
     </>
   );
 };

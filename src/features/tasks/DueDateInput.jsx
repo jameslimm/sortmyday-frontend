@@ -16,7 +16,7 @@ const DueDateInput = ({ dueDate, setDueDate, isDisabled = false }) => {
         onPress={() => setCalIsOpen(!calIsOpen)}
         isDisabled={isDisabled}
         ref={buttonRef}
-        className="flex gap-2 items-center focus:ring-2 ring-orange-400 ring-offset-2 outline-none shadow-sm bg-white px-2 py-1 rounded-md text-slate-500"
+        className="flex gap-2 items-center focus:ring-2 ring-orange-400 ring-offset-2 outline-none shadow-sm border-solid border-2 border-slate-200 bg-white px-2 py-1 rounded-md text-slate-500"
       >
         <span className="font-semibold text-nowrap">{buttonText}</span>
         <FaRegCalendarAlt />

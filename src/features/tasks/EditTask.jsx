@@ -14,7 +14,7 @@ const EditTask = ({ task, setIsEditing }) => {
   const [uiError, setUiError] = useState("");
 
   useEffect(() => {
-    taskInputRef.current && taskInputRef.current.focus();
+    taskInputRef?.current.focus();
   }, []);
 
   useEffect(() => {
@@ -38,13 +38,11 @@ const EditTask = ({ task, setIsEditing }) => {
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    taskInputRef.current && taskInputRef.current.focus();
+    taskInputRef?.current.focus();
 
+    // Validate the task input
     const { error, task } = taskValidate(editedTask.title);
-
     if (error) return setUiError(error);
-
-    console.log(editedTask);
 
     updateTask({ ...editedTask, title: task });
     setIsEditing(false);

@@ -1,6 +1,5 @@
-import { TaskDeleteButton } from "./TaskDeleteButton";
-import { TaskEditButton } from "./TaskEditButton";
-
+import TaskDeleteButton from "./TaskDeleteButton";
+import TaskEditButton from "./TaskEditButton";
 import FilterTag from "./FilterTag";
 import DueDateTaskView from "./DueDateTaskView";
 
@@ -13,6 +12,7 @@ const TaskViewRender = ({
   setIsEditing,
 }) => {
   const pending = task?.pending !== undefined;
+  const { _id, title, tag, due, completed } = task || {};
 
   const transitionClassNames = {
     entering: "opacity-1",
@@ -25,7 +25,7 @@ const TaskViewRender = ({
     <div
       ref={nodeRef}
       className={`flex items-center ${
-        task.completed ? "bg-slate-50" : "bg-slate-200"
+        completed ? "bg-slate-50" : "bg-slate-200"
       } p-2 mx-3 my-4 rounded shadow-md gap-4 transition-opacity ${
         transitionClassNames[state]
       } dark:bg-slate-800 ${pending && "animate-pulse"}`}
@@ -33,30 +33,28 @@ const TaskViewRender = ({
       <input
         className="w-10 h-10 accent-slate-600 shadow-md"
         type="checkbox"
-        checked={task.completed}
+        checked={completed}
         onChange={handleCheckToggle}
-        id={task._id}
+        id={_id}
         disabled={pending}
       />
       <div className="flex-1 flex flex-col gap-1 justify-between">
         <label
           className={`font-normal text-2xl text-purple-950 cursor-pointer ${
-            task.completed && "line-through"
+            completed && "line-through"
           } dark:text-purple-200`}
-          htmlFor={task._id}
+          htmlFor={_id}
         >
-          {task.title}
+          {title}
         </label>
-        {task.tag && (
+        {tag && (
           <div className="flex items-center justify-start gap-2">
-            <FilterTag tagId={task.tag} />
+            <FilterTag tagId={tag} />
           </div>
         )}
       </div>
-      {!task.completed && !pending && task.due && task.due !== "" && (
-        <DueDateTaskView isoDueDate={task.due} />
-      )}
-      {!task.completed && !pending && <TaskEditButton setIsEditing={setIsEditing} />}
+      {!completed && !pending && due && <DueDateTaskView isoDueDate={due} />}
+      {!completed && !pending && <TaskEditButton setIsEditing={setIsEditing} />}
       {!pending && <TaskDeleteButton handleDeleteClick={handleDeleteClick} />}
     </div>
   );

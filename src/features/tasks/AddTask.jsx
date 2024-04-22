@@ -4,8 +4,6 @@ import AddTaskForm from "./AddTaskForm";
 import { useAddTaskMutation } from "./tasksSlice";
 
 const AddTask = () => {
-  // Local state
-
   // TODO - Replace with React Aria components
   const [taskInput, setTaskInput] = useState("");
   const [tagSelect, setTagSelect] = useState("");
@@ -21,12 +19,12 @@ const AddTask = () => {
 
   useEffect(() => {
     // focus into the task input on component load
-    taskInputRef.current && taskInputRef.current.focus();
+    taskInputRef?.current.focus();
   }, []);
 
   useEffect(() => {
     if (isError) {
-      const { message } = result?.error?.data || {};
+      const { message } = result?.error.data || {};
       setUiError(message || isError);
     }
   }, [isError, result]);
@@ -38,7 +36,9 @@ const AddTask = () => {
 
   const handleAddTodoSubmit = (e) => {
     e.preventDefault();
-    taskInputRef.current && taskInputRef.current.focus();
+
+    // Move focus back to the task input
+    taskInputRef?.current.focus();
 
     // Validate the todo task
     const { error, task: title } = taskValidate(taskInput);
@@ -46,7 +46,11 @@ const AddTask = () => {
 
     // Submit task to the API slice
     addTask({ title, tag: tagSelect, due: dueDate });
+
+    // clear all inputs
     setTaskInput("");
+    setDueDate("");
+    setTagSelect("");
   };
 
   const addTaskProps = {
