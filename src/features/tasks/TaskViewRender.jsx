@@ -2,8 +2,7 @@ import { TaskDeleteButton } from "./TaskDeleteButton";
 import { TaskEditButton } from "./TaskEditButton";
 
 import FilterTag from "./FilterTag";
-
-import { format, parseISO } from "date-fns";
+import DueDateTaskView from "./DueDateTaskView";
 
 const TaskViewRender = ({
   state,
@@ -13,7 +12,6 @@ const TaskViewRender = ({
   handleDeleteClick,
   setIsEditing,
 }) => {
-  console.log(task);
   const pending = task?.pending !== undefined;
 
   const transitionClassNames = {
@@ -55,11 +53,8 @@ const TaskViewRender = ({
           </div>
         )}
       </div>
-      {/* TODO - Build make due date relative, formatDistanceToNow */}
-      {task.due && task.due !== "" && (
-        <span className="text-nowrap shadow-sm border-dotted border-2 border-slate-400 rounded-lg px-2 py-1 font-normal text-slate-500 text-sm">
-          Due: {format(parseISO(task.due), "do LLL")}
-        </span>
+      {!task.completed && !pending && task.due && task.due !== "" && (
+        <DueDateTaskView isoDueDate={task.due} />
       )}
       {!task.completed && !pending && <TaskEditButton setIsEditing={setIsEditing} />}
       {!pending && <TaskDeleteButton handleDeleteClick={handleDeleteClick} />}

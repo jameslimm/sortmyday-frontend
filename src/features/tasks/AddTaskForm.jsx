@@ -54,11 +54,13 @@ const AddTaskForm = ({
               ref={taskInputRef}
               minLength={3}
               maxLength={50}
+              disabled={!formOpen}
             />
             <p className="absolute -bottom-1/2 text-red-600 text-sm px-2">{uiError}</p>
           </div>
           <button
             type="submit"
+            disabled={!formOpen}
             className="bg-slate-500 text-nowrap px-2 py-1 text-m font-semibold rounded-md text-slate-50"
           >
             Add
@@ -70,11 +72,15 @@ const AddTaskForm = ({
           <div className="flex flex-wrap gap-4">
             <div className="flex items-center gap-2">
               <span className="text-sm">Tag</span>
-              <TagPickerSelect tagSelect={tagSelect} setTagSelect={setTagSelect} />
+              <TagPickerSelect
+                tagSelect={tagSelect}
+                setTagSelect={setTagSelect}
+                isDisabled={!formOpen}
+              />
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm text-nowrap">Due Date</span>
-              <DueDateInput dueDate={dueDate} setDueDate={setDueDate} />
+              <DueDateInput dueDate={dueDate} setDueDate={setDueDate} isDisabled={!formOpen} />
             </div>
           </div>
         </div>

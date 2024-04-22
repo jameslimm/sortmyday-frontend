@@ -1,4 +1,4 @@
-import { parseDate, getLocalTimeZone, today, CalendarDate } from "@internationalized/date";
+import { getLocalTimeZone, CalendarDate } from "@internationalized/date";
 
 import {
   Button,
@@ -13,8 +13,19 @@ import {
 import { GrCaretNext } from "react-icons/gr";
 import { GrCaretPrevious } from "react-icons/gr";
 
-const CalendarDialog = ({ triggerRef, isOpen, onOpenChange, isoDate, setIsoDate }) => {
+const CalendarDialog = ({
+  triggerRef,
+  isOpen,
+  onOpenChange,
+  isoDate,
+  setIsoDate,
+  clearDateLabel = "",
+}) => {
   // React Aria calendar - accepts and returns date in a custom format object
+  // triggerRef - the DOM ref of the element that triggers the calendar dialog (for positioning)
+  // isOpen - boolean.  If dialog shown?
+  // onOpenChange - an event handler, called when calendar requests that it's closed (click outside, etc)
+  // isoDate / setIsoDate - the ISO date (standard JS toIsoString)
 
   const handleDateChange = (calObj) => {
     // handle a click on a calendar date.  A custom calObj object is passed, use it's
@@ -62,7 +73,7 @@ const CalendarDialog = ({ triggerRef, isOpen, onOpenChange, isoDate, setIsoDate 
             <Button slot="previous">
               <GrCaretPrevious />
             </Button>
-            <Heading className="text-xl font-medium text-slate-600" />
+            <Heading className="text-xl font-medium text-slate-700" />
             <Button slot="next">
               <GrCaretNext />
             </Button>
@@ -71,19 +82,21 @@ const CalendarDialog = ({ triggerRef, isOpen, onOpenChange, isoDate, setIsoDate 
             {(date) => (
               <CalendarCell
                 date={date}
-                className="w-8 h-8 flex items-center justify-center data-[selected=true]:bg-slate-200 focus:bg-slate-200 hover:bg-slate-200 transition-all duration-75 rounded-lg"
+                className="w-8 h-8 flex items-center justify-center data-[selected=true]:bg-slate-200 text-slate-700 data-[outside-month]:text-slate-200 focus:bg-slate-200 hover:bg-slate-200 transition-all duration-75 rounded-lg"
               />
             )}
           </CalendarGrid>
         </Calendar>
-        <div className="flex justify-center mt-2">
-          <Button
-            className="bg-slate-500 text-nowrap px-2 py-1 text-m font-semibold rounded-md text-slate-50"
-            onPress={handleClearDate}
-          >
-            Clear Due Date
-          </Button>
-        </div>
+        {clearDateLabel && (
+          <div className="flex justify-center mt-2">
+            <Button
+              className="bg-slate-500 text-nowrap px-2 py-1 text-m font-semibold rounded-md text-slate-50"
+              onPress={handleClearDate}
+            >
+              {clearDateLabel}
+            </Button>
+          </div>
+        )}
       </Dialog>
     </Popover>
   );

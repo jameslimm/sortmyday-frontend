@@ -2,7 +2,7 @@ import useTagStore from "./useTagStore";
 
 import { formatTag, getTagColorClassesFromColor, getTagFromTagId } from "./tagUtils";
 
-const TagPickerSelect = ({ tagSelect, setTagSelect }) => {
+const TagPickerSelect = ({ tagSelect, setTagSelect, isDisabled = false }) => {
   // Create a select element with the available tags, styled with the
   // defined tag colors.
 
@@ -21,6 +21,7 @@ const TagPickerSelect = ({ tagSelect, setTagSelect }) => {
       className={`${selectColor} w-32 px-1 py-1 shadow-sm rounded-md font-normal text-m border-solid border-2 border-slate-200 placeholder-slate-500 text-slate-500`}
       value={tagSelect}
       onChange={(e) => setTagSelect(e.target.value)}
+      disabled={isDisabled}
     >
       {tagsUi.map((tag) => {
         const tagClassColor = getTagColorClassesFromColor(tag.color).classNormal;

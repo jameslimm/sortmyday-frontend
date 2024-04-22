@@ -28,21 +28,21 @@ const UserModal = ({ handleClose }) => {
       className="flex flex-col justify-start items-center absolute px-4 py-4 w-72 gap-2 right-8 top-14 z-10 shadow-lg rounded-lg border-slate-400 border-solid border-2 bg-slate-400 dark:bg-slate-700"
     >
       {userModalPage && userModalPage !== "INDEX" && (
-        <MdArrowBack
-          tabIndex={0}
-          role="button"
-          aria-label="back button"
+        <button
           onClick={() => setUserModalPage("INDEX")}
-          className="w-10 h-10 absolute left-2 top-2 hover:bg-slate-300 bg-slate-200 rounded-full p-1"
-        />
+          aria-label="back button"
+          className="w-8 h-8 absolute left-2 top-2 hover:bg-slate-300 bg-slate-200 rounded-full"
+        >
+          <MdArrowBack className="w-8 h-8 p-1" />
+        </button>
       )}
-      <MdOutlineClose
+      <button
         onClick={handleClose}
-        tabIndex={0}
-        role="button"
         aria-label="close menu"
-        className="w-8 h-8 absolute right-1 top-1 cursor-pointer hover:bg-slate-100 bg-slate-300 rounded-full p-1"
-      />
+        className="w-8 h-8 absolute right-1 top-1 hover:bg-slate-100 bg-slate-300 rounded-full"
+      >
+        <MdOutlineClose className="w-8 h-8 p-1" />
+      </button>
       <p className="text-3xl font-semibold text-slate-700 dark:text-slate-100">{username}</p>
       {userModalPage && userModalPage === "INDEX" && (
         <UserModalIndex setUserModalPage={setUserModalPage} />
