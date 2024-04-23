@@ -9,7 +9,7 @@ import { formatTag, getTagColorClassesFromColor } from "../tags/tagUtils";
 
 const EditTagsRow = ({ t, handleColorClick, handleDeleteClick }) => {
   const { tag, id, color } = t;
-  const { classNormal: tagClassColor } = getTagColorClassesFromColor(color);
+  const tagClassColor = getTagColorClassesFromColor(color);
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -24,7 +24,7 @@ const EditTagsRow = ({ t, handleColorClick, handleDeleteClick }) => {
       style={style}
       {...attributes}
       key={id}
-      className={`${tagClassColor} flex group justify-between items-center cursor-pointer select-none rounded-lg gap-2 p-2 m-2`}
+      className={`${tagClassColor} flex group touch-none justify-between items-center cursor-pointer select-none rounded-lg gap-2 p-2 m-2`}
     >
       <RiDraggable
         {...listeners}

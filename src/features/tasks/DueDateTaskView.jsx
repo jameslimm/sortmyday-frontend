@@ -12,7 +12,7 @@ const DueDateTaskView = ({ isoDueDate }) => {
   if (isTomorrow(dueDate)) dueMessage = "Tomorrow";
 
   return (
-    <span className="text-nowrap select-none shadow-sm border-dotted border-2 border-slate-400 rounded-lg px-2 py-1 font-normal text-slate-500 dark:text-slate-200 text-sm">
+    <span className="text-nowrap select-none shadow-sm border-solid bg-slate-100 border-2 border-slate-300 rounded-md px-2 py-0.5 font-normal text-slate-500 dark:text-slate-200 text-sm">
       Due: {dueMessage || dueDateFormat}
     </span>
   );

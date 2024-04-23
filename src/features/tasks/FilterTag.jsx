@@ -20,7 +20,7 @@ const FilterTag = ({ tagId, filter, setFilter }) => {
 
   const FILTERED_CLASS = "font-bold";
 
-  const classString = `block ${tagColor} px-3 rounded-md text-sm cursor-pointer select-none ${
+  const classString = `block ${tagColor} px-2 py-0.5 rounded-md shadow-sm text-sm border-2 border-solid border-slate-300 select-none ${
     filter === id && FILTERED_CLASS
   }`;
 

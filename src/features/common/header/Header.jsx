@@ -1,4 +1,4 @@
-import UserMenu from "../../user-menu/UserMenu";
+import UserMenu from "../../userMenu/UserMenu";
 import Logo from "./Logo";
 import LoginLink from "./LoginLink";
 import { useGetUserQuery } from "../../user/userSlice";

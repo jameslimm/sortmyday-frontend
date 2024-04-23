@@ -1,5 +1,5 @@
-import tailwindanimate from "tailwindcss-animate";
-import tailwindreactaria from "tailwindcss-react-aria-components";
+import tailwindAnimate from "tailwindcss-animate";
+import tailwindReactAria from "tailwindcss-react-aria-components";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,5 +8,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [tailwindanimate, tailwindreactaria],
+  plugins: [tailwindAnimate, tailwindReactAria],
 };

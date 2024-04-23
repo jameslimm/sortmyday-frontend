@@ -1,10 +1,10 @@
 import Login from "./features/user/Login";
 import Register from "./features/user/Register";
-import TasksList from "./features/tasks/TasksList";
+import TasksHome from "./features/tasks/TasksHome";
 import Layout from "./features/common/Layout";
 import Logout from "./features/user/Logout";
 import LoadingSpinner from "./features/common/loadingSpinner/LoadingSpinner";
-import HomeScreen from "./features/home-screen/HomeScreen";
+import HomeScreen from "./features/homeScreen/HomeScreen";
 
 import "./app.css";
 
@@ -23,12 +23,12 @@ function App() {
       <Route element={<Layout />}>
         <Route
           index
-          element={isLoading ? <LoadingSpinner /> : user ? <TasksList /> : <HomeScreen />}
+          element={isLoading ? <LoadingSpinner /> : user ? <TasksHome /> : <HomeScreen />}
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/tasks" element={<TasksList />} />
+        <Route path="/tasks" element={<TasksHome />} />
       </Route>
     </Routes>
   );
