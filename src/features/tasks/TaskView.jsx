@@ -14,17 +14,18 @@ const TaskView = ({ task, setIsEditing }) => {
   const nodeRef = useRef(null);
 
   const handleCheckToggle = () => {
-    updateTask({ ...task, completed: !task.completed });
+    setInView(false);
+    setTimeout(() => updateTask({ ...task, completed: !task.completed }), 150);
   };
 
   const handleDeleteClick = () => {
     // fade out the task item and then trigger the deletion
     setInView(false);
-    setTimeout(() => deleteTask(task._id), 150);
+    setTimeout(() => deleteTask(task._id), 200);
   };
 
   return (
-    <Transition nodeRef={nodeRef} in={inView} timeout={150}>
+    <Transition nodeRef={nodeRef} in={inView} timeout={200}>
       {(state) => (
         <TaskViewRender
           state={state}

@@ -14,7 +14,7 @@ const Filters = ({ filter, setFilter }) => {
   if (tags?.length === 0) return <></>;
 
   return (
-    <div className="flex flex-wrap items-center justify-start gap-2 my-2 mx-3">
+    <div className="flex flex-wrap items-center justify-start gap-2">
       <FilterTag tagId="" filter={filter} setFilter={setFilter} />
       {tags?.map((tag) => {
         return <FilterTag key={tag.id} tagId={tag.id} filter={filter} setFilter={setFilter} />;

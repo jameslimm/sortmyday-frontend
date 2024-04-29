@@ -27,32 +27,17 @@ const TaskViewRender = ({
   };
 
   // set background color of task based on if it's evenly
-  // positioned (using pos value) and completed.
+  // positioned (using pos value).
   // Creates an alternating style effect.
-  const taskBGLight =
-    pos % 2 === 0
-      ? completed
-        ? "bg-slate-100"
-        : "bg-slate-200"
-      : completed
-      ? "bg-gray-100"
-      : "bg-gray-200";
-
-  const taskBGDark =
-    pos % 2 === 0
-      ? completed
-        ? "dark:bg-slate-700"
-        : "dark:bg-slate-800"
-      : completed
-      ? "dark:bg-gray-700"
-      : "dark:bg-gray-800";
+  const taskBGLight = pos % 2 === 0 ? "bg-slate-100" : "bg-gray-100";
+  const taskBGDark = pos % 2 === 0 ? "dark:bg-slate-700" : "dark:bg-gray-700";
 
   return (
     <div
       ref={nodeRef}
-      className={`flex items-center ${taskBGLight} ${taskBGDark} px-2 sm:px-4 py-3 my-4 sm:mx-4 sm:rounded-md 
+      className={`flex items-center ${taskBGLight} ${taskBGDark} px-4 py-3 my-3 mx-4 rounded-md 
       shadow-md gap-3 sm:gap-4 transition-opacity 
-      border-solid border-y-2 sm:border-2 border-slate-300 dark:border-slate-600 ${
+      border-solid border-2 border-slate-300 dark:border-slate-600 ${
         transitionClassNames[state]
       }  ${pending && "animate-pulse"}`}
     >

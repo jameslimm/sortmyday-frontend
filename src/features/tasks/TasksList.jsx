@@ -6,7 +6,7 @@ import NoTasks from "./NoTasks";
 import useTagStore from "../tags/useTagStore";
 import { useGetTasksQuery } from "./tasksSlice";
 
-const TasksList = ({ filter }) => {
+const TasksList = ({ filter, showCompleted }) => {
   const { data: tasks } = useGetTasksQuery();
   const [tags] = useTagStore();
 
@@ -28,12 +28,14 @@ const TasksList = ({ filter }) => {
   }, [tasks, tags]);
 
   const filteredTasks = useMemo(() => {
-    // Create new filtered tasks array dependent on selected filter tag (or "" for all)
-    const filtered = sortedTasks?.filter((task) => (filter !== "" ? task.tag === filter : true));
+    // Create new filtered tasks array dependent on selected filter (or "" for all) and completed status
+    const filtered = sortedTasks?.filter(
+      (task) => (filter !== "" ? task.tag === filter : true) && showCompleted === task.completed
+    );
 
     // finally, add a position id for each task to enable custom styling
     return filtered?.map((task, i) => ({ ...task, pos: i }));
-  }, [filter, sortedTasks]);
+  }, [filter, showCompleted, sortedTasks]);
 
   return (
     <>

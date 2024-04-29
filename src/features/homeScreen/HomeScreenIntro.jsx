@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useLoginUserMutation } from "../user/userSlice";
 
 const HomeScreenIntro = () => {
+  const [loginUser] = useLoginUserMutation();
+
   return (
-    <div className={`px-4 flex flex-col justify-center items-center gap-3`}>
-      <h1 className="text-3xl sm:text-4xl text-black font-bold text-balance text-center mt-16">
+    <div className={`px-4 flex flex-col justify-center items-center gap-4`}>
+      <h1 className="text-3xl sm:text-4xl text-black font-bold text-balance text-center mt-8">
         Get organised and manage your tasks the Sort My Day way.
       </h1>
       <p className="text-xl text-balance text-center">Simple, flexible todo list software.</p>
@@ -15,14 +18,16 @@ const HomeScreenIntro = () => {
       >
         Start Getting Organised Now!
       </Link>
-      <p className="text-m">Create a free account to get started.</p>
-      <div className="p-4 bg-red-200 mt-4 font-semibold text-balance text-center">
-        To demo SortMyDay without creating an account, please{" "}
-        <Link to={"/login"} className="underline">
-          log in
-        </Link>{" "}
-        with username 'guest' and password 'guest'.
-      </div>
+      <p className="text-m mt-2 text-balance text-center">
+        Create a free account to get started, or{" "}
+        <button
+          className="underline"
+          onClick={() => loginUser({ username: "guest", password: "guest" })}
+        >
+          log in instantly
+        </button>{" "}
+        as a guest.
+      </p>
     </div>
   );
 };

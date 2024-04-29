@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      <main className="my-0 flex-1 mx-auto bg-blue-50 w-full md:w-2/3 xl:w-1/2 shadow-xl pt-4 dark:bg-slate-900">
+      <main className="my-0 pb-12 flex-1 mx-auto bg-blue-50 w-full md:w-2/3 xl:w-1/2 shadow-xl pt-4 dark:bg-slate-900">
         <Outlet />
       </main>
       <Footer />
