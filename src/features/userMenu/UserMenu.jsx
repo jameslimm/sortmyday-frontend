@@ -1,21 +1,21 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import UserModal from "./UserModal";
 import { useGetUserQuery } from "../user/userSlice";
 
 const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Get first letter of logged in username
   const { data } = useGetUserQuery();
-
-  const userLetter = (data && data.user?.username?.substring(0, 1).toUpperCase()) || "";
+  const userLetter = data?.user.username.substring(0, 1).toUpperCase() || "";
 
   const handleAccountIconClick = () => {
     setIsMenuOpen((mo) => !mo);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, [setIsMenuOpen]);
 
   return (
     <>
@@ -25,7 +25,7 @@ const UserMenu = () => {
       >
         <span className="text-2xl font-mono text-white">{userLetter}</span>
       </button>
-      {isMenuOpen && <UserModal handleClose={handleCloseModal} />}
+      {isMenuOpen ? <UserModal handleClose={handleCloseModal} /> : null}
     </>
   );
 };

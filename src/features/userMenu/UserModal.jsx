@@ -20,14 +20,15 @@ const UserModal = ({ handleClose }) => {
     };
     document.addEventListener("click", handleClick, "true");
     return () => document.removeEventListener("click", handleClick, "true");
-  }, []);
+  }, [handleClose]);
 
   return (
     <div
       ref={modalRef}
       className="flex flex-col justify-start items-center absolute px-4 py-4 w-72 gap-2 right-8 top-14 z-10 shadow-lg rounded-lg border-slate-400 border-solid border-2 bg-slate-400 dark:bg-slate-700"
     >
-      {userModalPage && userModalPage !== "INDEX" && (
+      {/* IF NOT ON THE USER MODAL HOME PAGE, DISPLAY BACK ARROW */}
+      {userModalPage !== "INDEX" && (
         <button
           onClick={() => setUserModalPage("INDEX")}
           aria-label="back button"

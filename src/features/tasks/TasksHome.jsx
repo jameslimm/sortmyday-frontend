@@ -16,6 +16,7 @@ const TasksHome = () => {
         <Filters filter={filter} setFilter={setFilter} />
         <TaskListSwitch showCompleted={showCompleted} setShowCompleted={setShowCompleted} />
       </div>
+
       <TasksList filter={filter} showCompleted={showCompleted} />
     </>
   );
